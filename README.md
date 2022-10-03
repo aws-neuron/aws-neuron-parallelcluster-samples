@@ -1,4 +1,4 @@
-## My Project
+## ParallelCluster with Trn1 
 
 TODO: Fill this README out!
 
