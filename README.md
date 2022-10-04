@@ -43,9 +43,9 @@ This is needed in a local environment (i.e., your Mac/PC desktop with a CLI term
 
 See table below for script to create trn1 ParallelCluster:
 
-|example      | cluster creation |
+|Cluster      | Link |
 |-------------|------------------|
-|BERT Large   | [trn1-8-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
+|8xTrn1 nodes cluster  | [trn1-8-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
 
 ## Launch training job
 
