@@ -43,17 +43,17 @@ This is needed in an local environment (i.e., your Mac/PC desktop with a CLI ter
 
 See table below for script to create trn1 ParallelCluster:
 
-|example      | cluster creation |
-|-------------|------------------|
-|BERT Large   | [dp-bert-create-pcluster.md](./detailed_instructions/dp-bert-create-pcluster.md)  |
+| Cluster        | Link |
+|----------------------|------------------|
+| 8xTrn1 nodes cluster | [dp-bert-create-pcluster.md](./detailed_instructions/dp-bert-create-pcluster.md)  |
 
 ## Launch training job
 
 See table below for script to launch a model training job on the ParallelCluster:
 
-|example      | slurm job launch  |
+| Slurm Job         | Link  |
 |-------------|-------------------|
-|BERT Large   | [dp-bert-launch.md](./detailed_instructions/dp-bert-launch-job.md) |
+|BERT Large Training  | [dp-bert-launch.md](./detailed_instructions/dp-bert-launch-job.md) |
 
 ## Security
 
