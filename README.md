@@ -45,13 +45,13 @@ See table below for script to create trn1 ParallelCluster:
 
 |Cluster      | Link |
 |-------------|------------------|
-|8xTrn1 nodes cluster  | [trn1-8-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
+|8xTrn1 nodes   | [trn1-8-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
 
 ## Launch training job
 
 See table below for script to launch a model training job on the ParallelCluster:
 
-|example      | slurm job launch  |
+|Job      | Link  |
 |-------------|-------------------|
 |BERT Large   | [dp-bert-launch-job.md](./examples/jobs/dp-bert-launch-job.md) |
 
