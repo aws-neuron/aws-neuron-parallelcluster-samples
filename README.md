@@ -1,4 +1,4 @@
-# Train a model on AWS Tr1 ParallelCluster
+# Train a model on AWS Trn1 ParallelCluster
 
 ## Introduction
 
@@ -41,11 +41,19 @@ This is needed in an local environment (i.e., your Mac/PC desktop with a CLI ter
 
 ## Create a cluster
 
-See instructions to create Trn1 ParallelCluster [here](./detailed_instructions/create-pcluster.md). 
+See table below for script to create trn1 ParallelCluster:
+
+|Example      | Cluster creation |
+|-------------|------------------|
+|BERT Large   | [dp-bert-create-pcluster.md](./detailed_instructions/dp-bert-create-pcluster.md)  |
 
 ## Launch training job
 
-To launch a model training job on the ParallelCluster, see instructions [here](./detailed_instructions/launch-job.md).
+See table below for script to launch a model training job on the ParallelCluster:
+
+|Example      | Slurm job launch  |
+|-------------|-------------------|
+|BERT Large   | [dp-bert-launch.md](./detailed_instructions/dp-bert-launch-job.md) |
 
 ## Security
 
