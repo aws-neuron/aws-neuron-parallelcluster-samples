@@ -2,18 +2,18 @@
 
 ## Introduction
 
-This document explains how to use AWS ParallelCluster to build HPC compute cluster that uses Trn1 compute nodes to run your distributed ML training job. Once the nodes are launched, we will run a training task to confirm that the nodes are working, and use slurm commands to check the job status. In this tutorial, we will use AWS pcluster command to run a yaml file in order to generate the cluster. As an example, we are going to launch multiple Trn1.32xl nodes in our cluster.
+This document explains how to use AWS ParallelCluster to build HPC compute cluster that uses trn1 compute nodes to run your distributed ML training job. Once the nodes are launched, we will run a training task to confirm that the nodes are working, and use slurm commands to check the job status. In this tutorial, we will use AWS pcluster command to run a yaml file in order to generate the cluster. As an example, we are going to launch multiple trn1.32xl nodes in our cluster.
 
 We are going to set up our ParallelCluster infrastructure as below:
 
 ![image info](./detailed_instructions/document_assets/vpc-setup.png)
 
-As shown in the figure above, inside a VPC, there are two subnets, a public and a private ones. Head Node resides in the public subnet, while the compute fleet (in this case, trn1 instances) are in the private subnet. A Network Address Translation (NAT) gateway is also needed in order for nodes in the private subnet to connect to clients outside the VPC. In the next sction, we are going to describe how to set up all the necssary infrastructure for Trn1 ParallelCluster.
+As shown in the figure above, inside a VPC, there are two subnets, a public and a private ones. Head Node resides in the public subnet, while the compute fleet (in this case, trn1 instances) are in the private subnet. A Network Address Translation (NAT) gateway is also needed in order for nodes in the private subnet to connect to clients outside the VPC. In the next section, we are going to describe how to set up all the necessary infrastructure for Trn1 ParallelCluster.
 
-Some useful slurm commands are `sinfo` and  `squeue`. `sinfo` command displays information about Slurm modes and partitions. `sinfo` command provides information about job queues currently running in the Slurm schedule. Once the job is done, Slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary.
+Some useful slurm commands are `sinfo` and  `squeue`. `sinfo` command displays information about slurm modes and partitions. `sinfo` command provides information about job queues currently running in the Slurm schedule. Once the job is done, slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary.
 
 ## Prerequisite infrastructure
-The following are required infrastructure components for Parallel Cluster. You must have these component created and configured before moving on to create the cluster.
+The following are required infrastructure components for ParallelCluster. You must have these component created and configured before moving on to create the cluster.
 
 ### VPC
 
@@ -43,7 +43,7 @@ This is needed in an local environment (i.e., your Mac/PC desktop with a CLI ter
 
 See table below for script to create trn1 ParallelCluster:
 
-|Example      | Cluster creation |
+|example      | cluster creation |
 |-------------|------------------|
 |BERT Large   | [dp-bert-create-pcluster.md](./detailed_instructions/dp-bert-create-pcluster.md)  |
 
@@ -51,7 +51,7 @@ See table below for script to create trn1 ParallelCluster:
 
 See table below for script to launch a model training job on the ParallelCluster:
 
-|Example      | Slurm job launch  |
+|example      | slurm job launch  |
 |-------------|-------------------|
 |BERT Large   | [dp-bert-launch.md](./detailed_instructions/dp-bert-launch-job.md) |
 
