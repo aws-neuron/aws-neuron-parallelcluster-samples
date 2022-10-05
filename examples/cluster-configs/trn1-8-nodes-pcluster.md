@@ -33,12 +33,12 @@ Scheduling:
           RootVolume:
             Size: 1024
           EphemeralVolume:
-            MountDir: /kaena
+            MountDir: /local_storage
       ComputeResources:
         - Efa:
             Enabled: true
           InstanceType: trn1.32xlarge
-          MaxCount: 8
+          MaxCount: 16
           MinCount: 1
           Name: queue1-i1
       Networking:
@@ -50,7 +50,7 @@ SharedStorage:
 - EfsSettings:
     ProvisionedThroughput: 1024
     ThroughputMode: provisioned
-  MountDir: /neuron_shared
+  MountDir: /efs
   Name: ktfefs
   StorageType: Efs
   ```
@@ -75,7 +75,7 @@ So now you have two queues, each queue is designated to a number of trn1 compute
     Enabled: true
 ```
 
-If you are using trn1.2xl instance, this feature is not ebabled, and in which case, you don’t need such designation.
+If you are using trn1.2xl instance, this feature is not enabled, and in which case, you don’t need such designation.
 
 You also need to designate an EC2 private key . This is indicated by the following line in launch.yaml :
 
@@ -102,3 +102,4 @@ Where
 
 This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console.
 
+Please follow the sections ["Setting up the training environment on trn1.32xlarge"](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#id4) and ["Downloading tokenized and sharded dataset files"](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#id5) to setup the BERT scripts and download the dataset files.
