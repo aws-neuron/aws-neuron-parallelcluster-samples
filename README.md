@@ -38,7 +38,9 @@ You also need a ParallelCluster AMI to run on your cluster. Follow the steps bel
 
 2. Once the AMI is chosen, make a note of the AMI ID; you will need this AMI to create a ParallelCluster. 
 
-3. After the cluster is created, you will update your cluster with Neuron stacks by running the fresh installation instructions, as shown in [the Fresh install section](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-intro/pytorch-setup/pytorch-install.html#develop-on-aws-ml-accelerator-instance) of the AWS Neuron SDK documentation.
+3. After the cluster is created, you will need to run a post-installation script.
+
+Details and steps are provided in [here](./examples/general/ami/ami_setup.md)
 
 
 ### AWS Parallel Cluster Python package
