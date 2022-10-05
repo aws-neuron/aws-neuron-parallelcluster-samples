@@ -32,7 +32,14 @@ A Network Address Translation (NAT) gateway is required for compute nodes in the
 You also need a key pair. You may use an existing one. But if you wish to create a new key pair, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair") is the instruction.
 
 ### AMI
-You also need a ParallelCluster AMI to run on your cluster. For this example, you may find a list of available ParallelCluster AMI in [here](https://github.com/aws/aws-parallelcluster/blob/v2.11.7/amis.txt). For the example here, we will use Amazon Linux 2 AMI. You may find the AMI ID based on the region accessible by your account. Once the AMI is chose, you will use this AMI to create a ParallelCluster. After the cluster is created, you will update your cluster with Neuron stacks by running the fresh installation instructions, as shown in [the Fresh install section](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-intro/pytorch-setup/pytorch-install.html#develop-on-aws-ml-accelerator-instance) of the AWS Neuron SDK documentation.
+You also need a ParallelCluster AMI to run on your cluster. Follow the steps below:
+
+1. Find a list of available ParallelCluster AMI in [here](https://github.com/aws/aws-parallelcluster/blob/v2.11.7/amis.txt). For the example here, we will use Amazon Linux 2 AMI. You may find the AMI ID based on the region accessible by your account. 
+
+2. Once the AMI is chosen, make a note of the AMI ID; you will need this AMI to create a ParallelCluster. 
+
+3. After the cluster is created, you will update your cluster with Neuron stacks by running the fresh installation instructions, as shown in [the Fresh install section](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/neuron-intro/pytorch-setup/pytorch-install.html#develop-on-aws-ml-accelerator-instance) of the AWS Neuron SDK documentation.
+
 
 ### AWS Parallel Cluster Python package
 
