@@ -54,7 +54,7 @@ See table below for script to create trn1 ParallelCluster:
 
 |Cluster      | Link |
 |-------------|------------------|
-|8xTrn1 nodes   | [trn1-8-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
+|16xTrn1 nodes   | [trn1-16-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
 
 ## Launch training job
 
