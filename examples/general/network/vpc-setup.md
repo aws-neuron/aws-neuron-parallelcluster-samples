@@ -1,5 +1,4 @@
 # VPC setup for ParallelCluster with Trn1
-# VPC setup for ParallelCluster with Trn1
 
 Here are the detailed, step-by-step instructions for creating a VPC and infrastructure within it. These instructions are based on AWS console. 
 

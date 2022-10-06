@@ -22,8 +22,6 @@ Trn1 instances of various sizes are being launched and will be available in many
 ### Subnets
 Once you have a VPC, you also need to create two subnets within the VPC for your HPC environment. See [AWS documentation](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Creating subnets") for creating the VPC and two subnets (**public with NAT gateway for head node, private for compute nodes**). The network configuration for this tutorial uses two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). As shown [here](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-subnets-commands-example.html#vpc-subnets-commands-example-launch-instance "Launch instance"), you may use AWS CLI to create a subnet within the VPC. Follow the instructions [here](./examples/general/network/subnet-setup.md) to set up your public subnet.
 
-### Peering Connection
-A peering connection is needed between your default VPC and the VPC for ParallelCluster. Follow [this](./examples/general/network/peering-connection-setup.md) instruction for how to create a peering connection, and add it to the public subnet's route table. 
 
 ### NAT gateway
 A Network Address Translation (NAT) gateway is required for compute nodes in the private subnet to connect to service outside (i.e., web access for essential software updates or packages) the VPC. This is a one-way connection such that outside services cannot connect to the nodes inside the private subnet. For convenience, choose NAT gateway option during the time you create the VPC, so that a NAT gateway is created automatically. In this example, it is created while we set up VPC as shown in [the VPC setup instructions](./examples/general/network/vpc-setup.md).
@@ -54,7 +52,7 @@ See table below for script to create trn1 ParallelCluster:
 
 |Cluster      | Link |
 |-------------|------------------|
-|16xTrn1 nodes   | [trn1-16-nodes-pcluster.md](./examples/cluster-configs/trn1-8-nodes-pcluster.md)  |
+|16xTrn1 nodes   | [trn1-16-nodes-pcluster.md](./examples/cluster-configs/trn1-16-nodes-pcluster.md)  |
 
 ## Launch training job
 
