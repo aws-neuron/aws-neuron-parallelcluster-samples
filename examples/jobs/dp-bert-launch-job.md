@@ -12,15 +12,17 @@ The Python script `dp_bert_large_hf_pretrain_hdf5.py` in head node is used as th
 Following are steps for launching a training job:
 
 1. In a terminal of the head node, activate the Python virtual environment: `source ~/aws_neuron_venv_pytorch_p37/bin/activate`.
-2. Download a shell run script to head node to set up the runtime environment: 
+
+2. Download dataset. In a terminal of the head node, follow [instructions in Neuron documentation](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files)
+
+3. Download a shell run script to head node to set up the runtime environment: 
 
 ```
 cd ~/examples/dp_bert_hf_pretrain
 wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/torch-neuronx/training/dp_bert_hf_pretrain/run_dp_bert_large_hf_pretrain_bf16_s128.sh
 ```
 
-
-3. Change `run_dp_bert_large_hf_pretrain_bf16_s128.sh` to executable:
+4. Change `run_dp_bert_large_hf_pretrain_bf16_s128.sh` to executable:
     
     `chmod +x ./run_dp_bert_large_hf_pretrain_bf16_s128.sh`
 
@@ -42,13 +44,13 @@ Also, save the following SLURM pretraining script as `pretrain_ph1.slurm` :
 srun ./run_dp_bert_large_hf_pretrain_bf16_s128.sh
 ```
 
-4. Then run the slurm compilation script using:
+5. Then run the slurm compilation script using:
 
 ```
 sbatch compile_ph1.slurm
 ```
 
-5. Wait for compilation to finish on these nodes, then start the actual pretraining:
+6. Wait for compilation to finish on these nodes, then start the actual pretraining:
 
 ```
 sbatch pretrain_ph1.slurm
@@ -61,3 +63,6 @@ The job id will be displayed by sbatch. The run output will appear in slurm_<job
 
 Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays information about Slurm modes and partitions. sinfo command provides information about job queues currently running in the Slurm schedule. Once the job is done, slurm will generate a log file slurm-XXXXXX.out. You may then use `tail -f slurm-XXXXXX.out` to inspect the job summary.
 
+## Troubleshooting guide
+
+See [Troubleshooting Guice in Neuron documentation](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/torch-neuronx/training-troubleshooting.html#pytorch-neuron-torch-neuronx-for-training-troubleshooting-guide) for more details and fixes to common issues.
