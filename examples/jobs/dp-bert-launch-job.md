@@ -1,9 +1,9 @@
 # Launch training job
-Once the cluster is successfully created, you may ssh into the head node from your local environment used to launch the cluster in the previous step. As an example here, we will use [Phase 1 BERT-Large pretraining](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#phase-1-bert-large-pretraining) as the example job to submit to the cluster. This pretraining script will be stored in the head node. Upon launching the job, the head node will distribute it to each compute node.
+Once the cluster is successfully created, you may ssh into the head node from your local environment used to launch the cluster in the previous step. As an example here, we will use [Phase 1 BERT-Large pretraining](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#phase-1-bert-large-pretrainingg) as the example job to submit to the cluster. This pretraining script will be stored in the head node. Upon launching the job, the head node will distribute it to each compute node.
 
 In this entire process, there will be three scripts required:
 
-1. Python script (.py) that executes the workload, which is `dp_bert_large_hf_pretrain_hdf5.py` and may be downloaded per instruction [here](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#phase-1-bert-large-pretraining).
+1. Python script (.py) that executes the workload, which is `dp_bert_large_hf_pretrain_hdf5.py` and may be downloaded per instruction [here](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#phase-1-bert-large-pretraining).
 2. Shell script that sets up environment definition and runtime argument to be passed into the Python script.
 3. Slurm script that submit the shell script to the job queue
 
@@ -13,7 +13,7 @@ Following are steps for launching a training job:
 
 1. In a terminal of the head node, activate the Python virtual environment: `source ~/aws_neuron_venv_pytorch_p37/bin/activate`.
 
-2. Download dataset. In a terminal of the head node, follow [instructions in Neuron documentation](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files)
+2. Download dataset. In a terminal of the head node, follow [instructions in Neuron documentation](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files)
 
 3. Download a shell run script to head node to set up the runtime environment: 
 
@@ -65,4 +65,4 @@ Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays info
 
 ## Troubleshooting guide
 
-See [Troubleshooting Guice in Neuron documentation](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/torch-neuronx/training-troubleshooting.html#pytorch-neuron-torch-neuronx-for-training-troubleshooting-guide) for more details and fixes to common issues.
+See [Troubleshooting Guice in Neuron documentation](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#troubleshooting) for more details and fixes to common issues.

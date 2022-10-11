@@ -6,7 +6,8 @@ You need a ParallelCluster AMI for you to run the cluster. For now, the approach
 
 2. Once the AMI is chosen, make a note of the AMI ID; you will need this AMI to create a ParallelCluster. 
 
-3. After the cluster is created, create a post installation script to install Neuron packages by creating `install_neuron.sh` script that has same content as in [here](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/setup/pytorch-install.html) for Amazon Linux 2.
+3. After the cluster is created, create a post installation script to install Neuron packages by creating `install_neuron.sh` script that has same content as in [here](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/setup/pytorch-install.html#develop-on-trn1-instance) for Amazon Linux 2.
+
 
 4. Change `install_neuron.sh` to executable:
 
