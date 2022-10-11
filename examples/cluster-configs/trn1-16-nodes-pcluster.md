@@ -51,7 +51,7 @@ SharedStorage:
     ProvisionedThroughput: 1024
     ThroughputMode: provisioned
   MountDir: /efs
-  Name: ktfefs
+  Name: neuron
   StorageType: Efs
   ```
 
@@ -102,4 +102,4 @@ Where
 
 This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console.
 
-Please follow the sections ["Setting up the training environment on trn1.32xlarge"](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#id4) and ["Downloading tokenized and sharded dataset files"](https://awsdocs-neuron-staging.readthedocs-hosted.com/en/release_2.3.0rc2/frameworks/torch/tutorials/training/bert.html?next=https%3A%2F%2Fawsdocs-neuron-staging.readthedocs-hosted.com%2Fen%2Frelease_2.3.0rc1%2Fframeworks%2Ftorch%2Ftutorials%2Ftraining%2Fbert.html%3Fnext%3Dhttps%253A%252F%252Fawsdocs-neuron-staging.readthedocs-hosted.com%252Fen%252Frelease_2.3.0rc1%252Fframeworks%252Ftorch%252Ftutorials%252Ftraining%252Fbert.html&ticket=ST-1663365027-jWyjPKGS3TtpDY9Ih0iklXykKnHRSSnL#id5) to setup the BERT scripts and download the dataset files.
+Please follow the sections ["Setting up the training environment on trn1.32xlarge"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#setting-up-the-training-environment-on-trn1-32xlarge) and ["Downloading tokenized and sharded dataset files"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files) to setup the BERT scripts and download the dataset files.
