@@ -19,7 +19,7 @@ Following are steps for launching a training job:
 
 ```
 cd ~/examples/dp_bert_hf_pretrain
-wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/torch-neuronx/training/dp_bert_hf_pretrain/run_dp_bert_large_hf_pretrain_bf16_s128.sh
+wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/master/torch-neuronx/training/dp_bert_hf_pretrain/run_dp_bert_large_hf_pretrain_bf16_s128.sh
 ```
 
 4. Change `run_dp_bert_large_hf_pretrain_bf16_s128.sh` to executable:
