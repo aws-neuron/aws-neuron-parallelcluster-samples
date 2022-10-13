@@ -85,4 +85,4 @@ Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays info
 
 ## Troubleshooting guide
 
-See [Troubleshooting Guice in Neuron documentation](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#troubleshooting) for more details and fixes to common issues.
+See [Troubleshooting Guide for AWS ParallelCluster](https://docs.aws.amazon.com/parallelcluster/latest/ug/troubleshooting-v3.html) for more details and fixes to common issues.
