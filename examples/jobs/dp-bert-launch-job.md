@@ -56,7 +56,7 @@ cd ~/examples/dp_bert_hf_pretrain
 sbatch --exclusive --nodes=16 --wrap "srun neuron_parallel_compile ./run_dp_bert_large_hf_pretrain_bf16_s128.sh"
 ```
 
-The job id will be displayed by sbatch. You can monitor the results of the compilation job by inspecting the file slurm_<job id>.out file generated in ~/examples/dp_bert_hf_pretrain.
+The job id will be displayed by sbatch. You can monitor the results of the compilation job by inspecting the file `slurm_<job id>.out` file generated in `~/examples/dp_bert_hf_pretrain`.
 
 
 After the compilation job is finished, start the actual pretraining:
@@ -66,7 +66,7 @@ cd ~/examples/dp_bert_hf_pretrain
 sbatch  --exclusive --nodes=16 --wrap "srun ./run_dp_bert_large_hf_pretrain_bf16_s128.sh"
 ```
 
-Again, the job id will be displayed by sbatch and you can follow the training by inspecting the file slurm_<job id>.out file generated in ~/examples/dp_bert_hf_pretrain.
+Again, the job id will be displayed by sbatch and you can follow the training by inspecting the file `slurm_<job id>.out` file generated in `~/examples/dp_bert_hf_pretrain`.
 
 The SLURM shell script automatically adjust the gradient accumulation microsteps to keep the global batch size for phase 1 at 16384 (strong scaling) with the following line in the script:
 
@@ -77,7 +77,7 @@ To see performance for larger global batch size (weak scaling), please comment o
 
 ## Tips
 
-Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays information about SLURM modes and partitions. sinfo command provides information about job queues currently running in the Slurm schedule. While a job is running, SLURM generates a log file slurm_<job id>.out. You may then use `tail -f slurm_<job id>.out` to inspect the job summary.
+Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays information about SLURM modes and partitions. sinfo command provides information about job queues currently running in the Slurm schedule. While a job is running, SLURM generates a log file `slurm_<job id>.out`. You may then use `tail -f slurm_<job id>.out` to inspect the job summary.
 
 ## Known issues/limitations
 
