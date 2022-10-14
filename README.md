@@ -13,38 +13,18 @@ As shown in the figure above, inside a VPC, there are two subnets, a public and 
 Some useful slurm commands are `sinfo` and  `squeue`. `sinfo` command displays information about slurm modes and partitions. `sinfo` command provides information about job queues currently running in the Slurm schedule. Once the job is done, slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary.
 
 ## Prerequisite infrastructure
-The following are required infrastructure components for ParallelCluster. You must have these component created and configured before moving on to create the cluster.
 
 ### VPC
-
-Trn1 instances of various sizes are being launched and will be available in many AWS regions. Follow the instructions [here](./examples/general/network/vpc-setup.md) to set up your VPC.
-
-### Subnets
-Once you have a VPC, you also need to create two subnets within the VPC for your HPC environment. See [AWS documentation](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Creating subnets") for creating the VPC and two subnets (**public with NAT gateway for head node, private for compute nodes**). The network configuration for this tutorial uses two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). As shown [here](https://docs.aws.amazon.com/vpc/latest/userguide/vpc-subnets-commands-example.html#vpc-subnets-commands-example-launch-instance "Launch instance"), you may use AWS CLI to create a subnet within the VPC. Follow the instructions [here](./examples/general/network/subnet-setup.md) to set up your public subnet.
-
-
-### NAT gateway
-A Network Address Translation (NAT) gateway is required for compute nodes in the private subnet to connect to service outside (i.e., web access for essential software updates or packages) the VPC. This is a one-way connection such that outside services cannot connect to the nodes inside the private subnet. For convenience, choose NAT gateway option during the time you create the VPC, so that a NAT gateway is created automatically. In this example, it is created while we set up VPC as shown in [the VPC setup instructions](./examples/general/network/vpc-setup.md).
+A ParallelCluster requires a VPC. First, you must have these component created and configured before creating the cluster. [Here](./examples/general/network/vpc-setup.m) is the instruction to create a VPC. This VPC has two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). Second, after VPC is created, follow [this instruction](./examples/general/network/subnet-setup.md) to configure the public subnet.
 
 ### Key pair
-You also need a key pair. You may use an existing one. But if you wish to create a new key pair, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair") is the instruction.
-
-### AMI
-You also need a ParallelCluster AMI to run on your cluster. Follow the steps below:
-
-1. Find a list of available ParallelCluster AMI in [here](https://github.com/aws/aws-parallelcluster/blob/v2.11.7/amis.txt). For the example here, we will use Amazon Linux 2 AMI. You may find the AMI ID based on the region accessible by your account. 
-
-2. Once the AMI is chosen, make a note of the AMI ID; you will need this AMI to create a ParallelCluster. 
-
-3. After the cluster is created, you will need to run a post-installation script.
+You also need a key pair. You may use an existing one. But if you wish to create a new key pair, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair") is the instruction. A key is pair is needed so you may SSH into the head node of the cluster.
 
 Details and steps are provided in [here](./examples/general/ami/ami_setup.md)
-
 
 ### AWS Parallel Cluster Python package
 
 This is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [this](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for details on how to install this package. After the installation. A Python virtual environment will be created. Activate this particular virtual environment. 
-
 
 ## Create a cluster
 
