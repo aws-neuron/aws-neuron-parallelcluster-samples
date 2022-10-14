@@ -106,7 +106,7 @@ python -m pip install -U pip
 # Install packages from beta repos
 
 python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazonaws.com"
-\# Install Python packages - Transformers package is needed for BERT
+# Install Python packages - Transformers package is needed for BERT
 python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" transformers
 ```
 
@@ -122,5 +122,6 @@ This is run as a shell script instead of Slurm script. This is because we only w
 
 After this step is complete, the ParallelCluster is properly configured to run SLURM jobs.
 
-```
 
+## Helpful SLURM commands
+Some useful slurm commands are `sinfo`,  `squeue` and `scontrol`. `sinfo` command displays information about slurm node names and partitions. `squeue` command provides information about job queues currently running in the Slurm schedule. Once the job is done, slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary. `scontrol show node <COMPUTE_NODE_NAME>` can show more information such as node state, power consumption, and more.

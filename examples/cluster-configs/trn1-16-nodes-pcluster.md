@@ -104,3 +104,5 @@ This will create a ParallelCluster in your AWS account, and you may inspect the 
 Please follow the sections ["Setting up the training environment on trn1.32xlarge"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#setting-up-the-training-environment-on-trn1-32xlarge) and ["Downloading tokenized and sharded dataset files"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files) to setup the BERT scripts and download the dataset files.
 
 3. After the cluster is created successfully, perform the [post-install actions](../general/ami/post_installation.md) to configure the head node and compute nodes. 
+
+

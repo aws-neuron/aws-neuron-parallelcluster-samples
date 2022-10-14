@@ -10,12 +10,12 @@ We are going to set up our ParallelCluster infrastructure as below:
 
 As shown in the figure above, inside a VPC, there are two subnets, a public and a private ones. Head Node resides in the public subnet, while the compute fleet (in this case, trn1 instances) are in the private subnet. A Network Address Translation (NAT) gateway is also needed in order for nodes in the private subnet to connect to clients outside the VPC. In the next section, we are going to describe how to set up all the necessary infrastructure for Trn1 ParallelCluster.
 
-Some useful slurm commands are `sinfo` and  `squeue`. `sinfo` command displays information about slurm modes and partitions. `sinfo` command provides information about job queues currently running in the Slurm schedule. Once the job is done, slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary.
+
 
 ## Prerequisite infrastructure
 
 ### VPC
-A ParallelCluster requires a VPC. First, you must have these component created and configured before creating the cluster. [Here](./examples/general/network/vpc-setup.m) is the instruction to create a VPC. This VPC has two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). Second, after VPC is created, follow [this instruction](./examples/general/network/subnet-setup.md) to configure the public subnet.
+A ParallelCluster requires a VPC. First, you must have these component created and configured before creating the cluster. [Here](./examples/general/network/vpc-setup.m) is the instruction to create a VPC. This VPC has two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). Second, after VPC is created, follow [this instruction](./examples/general/network/subnet-setup.md) to configure the public subnet. 
 
 ### Key pair
 You also need a key pair. You may use an existing one. But if you wish to create a new key pair, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair") is the instruction. A key is pair is needed so you may SSH into the head node of the cluster.
