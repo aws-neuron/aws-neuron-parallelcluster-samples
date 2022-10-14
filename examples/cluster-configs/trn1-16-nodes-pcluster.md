@@ -6,13 +6,6 @@
 Region: <YOUR REGION> # i.e., us-west-2
 Image:
   Os: alinux2
-SharedStorage:
-  - Name: myebs
-    StorageType: Ebs
-    MountDir: /shared
-    EbsSettings:
-      VolumeType: gp2
-      Size: 20
 HeadNode:
   InstanceType: c5.2xlarge
   Networking:
