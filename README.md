@@ -15,16 +15,14 @@ As shown in the figure above, inside a VPC, there are two subnets, a public and 
 ## Prerequisite infrastructure
 
 ### VPC
-A ParallelCluster requires a VPC. First, you must have these component created and configured before creating the cluster. [Here](./examples/general/network/vpc-setup.m) is the instruction to create a VPC. This VPC has two subnets as described in [this diagram](https://docs.aws.amazon.com/parallelcluster/latest/ug/network-configuration-v3.html#network-configuration-v3-two-subnets "Network configuration"). Second, after VPC is created, follow [this instruction](./examples/general/network/subnet-setup.md) to configure the public subnet. 
+A ParallelCluster requires a VPC that has two subnets and a Network Address Translation (NAT) gateway as shown in the diagram above. [Here](./examples/general/network/vpc-subnet-setup.md) are the instructions to to create hte VPC and enable auto-assign public IPv4 address for the public subnet. 
 
 ### Key pair
-You also need a key pair. You may use an existing one. But if you wish to create a new key pair, [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair") is the instruction. A key is pair is needed so you may SSH into the head node of the cluster.
+A key pair is needed for access to the head node of the cluster. You may use an existing one or create a new key pair by following the instruction [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair")
 
-Details and steps are provided in [here](./examples/general/ami/ami_setup.md)
+### AWS ParallelCluster Python package
 
-### AWS Parallel Cluster Python package
-
-This is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [this](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for details on how to install this package. After the installation. A Python virtual environment will be created. Activate this particular virtual environment. 
+AWS ParallelCluster Python package is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [this](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for details on how to install this package. After the installation. After the installation, a Python virtual environment will be created. Activate this particular virtual environment before running any `pcluster` command. 
 
 ## Create a cluster
 

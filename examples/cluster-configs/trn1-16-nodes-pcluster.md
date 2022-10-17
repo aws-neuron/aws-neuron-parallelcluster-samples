@@ -1,6 +1,6 @@
 # Create ParallelCluster
 
-1. Once your VPC is set up, you are ready to create a ParallelCluster. Copy the following content into a launch.yaml file in your local desktop where AWS ParallelCluster CLI is installed:
+1. Once your VPC, ParallelCluster python package, and key pair are set up, you are ready to create a ParallelCluster. Copy the following content into a launch.yaml file in your local desktop where AWS ParallelCluster CLI is installed:
 
 ```
 Region: <YOUR REGION> # i.e., us-west-2
@@ -90,12 +90,12 @@ Where
 
 `cluster-name` is the name of your cluster
 
-`supress-validators` is used here to generalize this command so it will not run into error triggered by tagging policies, if any.
+`suppress-validators` is used here to generalize this command so it will not run into error triggered by tagging policies, if any.
 
 This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console.
 
-Please follow the sections ["Setting up the training environment on trn1.32xlarge"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#setting-up-the-training-environment-on-trn1-32xlarge) and ["Downloading tokenized and sharded dataset files"](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#downloading-tokenized-and-sharded-dataset-files) to setup the BERT scripts and download the dataset files.
 
 3. After the cluster is created successfully, perform the [post-install actions](../general/ami/post_installation.md) to configure the head node and compute nodes. 
 
 
+4. After post-installation actions are complete, see [this](../jobs/dp-bert-launch-job.md) about how to launch a training job. 

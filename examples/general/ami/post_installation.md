@@ -5,6 +5,7 @@ You need to configure head node and compute nodes via post-installation actions.
 1. Create a `install_neuron.sh` script that has the following content:
 
 ```
+#!/bin/bash
 # Configure Linux for Neuron repository updates
 
 sudo tee /etc/yum.repos.d/neuron.repo > /dev/null <<EOF
@@ -75,6 +76,7 @@ After this is completed, all compute nodes will have necessary Neuron packages i
 4. Set up Python virtual environment in head node. In this step, create a shell script with the following content and name it as `install_python_env.sh`:
 
 ```
+#!/bin/bash
 # Configure Linux for Neuron repository updates
 
 sudo tee /etc/yum.repos.d/neuron.repo > /dev/null <<EOF
