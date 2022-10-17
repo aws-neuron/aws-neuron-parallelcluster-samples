@@ -1,25 +1,7 @@
 # Launch training job
-Once the cluster is successfully created, please ssh into the head node to begin the training example. As an example here, we will use [Phase 1 BERT-Large pretraining](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#phase-1-bert-large-pretrainingg) as the example job to submit to the cluster using SLURM job scheduler. You will be running commands from the head node.
+Once the cluster is successfully created and the Neuron packages are installed, please ssh into the head node to begin the training example. As an example here, we will use [Phase 1 BERT-Large pretraining](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/bert.html#phase-1-bert-large-pretrainingg) as the example job to submit to the cluster using SLURM job scheduler. You will be running commands from the head node. On ParallelCluster, the home directory is shared between the head node and compute nodes via NFS so files in the home directory are visible to worker nodes.
 
-First, on the headnode, setup the virtual Python environment in the home directory. The following is for setting up in Amazon Linux 2 OS: 
-
-```
-# Install Python venv and activate Python virtual environment to install
-# Neuron pip packages.
-python3 -m venv aws_neuron_venv_pytorch
-source aws_neuron_venv_pytorch/bin/activate
-python -m pip install -U pip
-
-# Install packages from beta repos
-python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazonaws.com"
-
-# Install Python packages - Transformers package is needed for BERT
-python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" transformers
-```
-
-On ParallelCluster, the home directory is shared between the head node and compute nodes, so this virtual environment is also visible from all compute nodes.
-
-For all the commands below, make sure you are in the virtual environment that you have created above before you run the commands. SLURM job scheduler will automatically activate the virtual environment when the training script is run on the worker nodes.
+For all the commands below, make sure you are in the virtual environment created during setup before you run the commands. SLURM job scheduler will automatically activate the virtual environment when the training script is run on the worker nodes.
 
 ```
 source ~/aws_neuron_venv_pytorch/bin/activate
