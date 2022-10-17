@@ -31,13 +31,13 @@ Scheduling:
             Enabled: true
           InstanceType: trn1.32xlarge
           MaxCount: 16
-          MinCount: 1
+          MinCount: 0
           Name: queue1-i1
       Networking:
         SubnetIds:
           - subnet-<PRIVATE SUBNET ID>
         PlacementGroup:
-          Enabled: false
+          Enabled: true
 SharedStorage:
 - EfsSettings:
     ProvisionedThroughput: 1024
