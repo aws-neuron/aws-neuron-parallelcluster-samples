@@ -77,46 +77,19 @@ After this is completed, all compute nodes will have necessary Neuron packages i
 
 ```
 #!/bin/bash
-# Configure Linux for Neuron repository updates
-
-sudo tee /etc/yum.repos.d/neuron.repo > /dev/null <<EOF
-[neuron]
-name=Neuron YUM Repository
-baseurl=https://yum.repos.neuron.amazonaws.com
-enabled=1
-metadata_expire=0
-EOF
-sudo rpm --import https://yum.repos.neuron.amazonaws.com/GPG-PUB-KEY-AMAZON-AWS-NEURON.PUB
-
-# Install OS headers
-sudo yum install kernel-devel-$(uname -r) kernel-headers-$(uname -r) -y
-
-# Update OS packages
-sudo yum update -y
-
-# Remove pre-installed package and Install Neuron Tools
-
-sudo yum remove aws-neuron-tools  -y
-sudo yum remove aws-neuronx-tools  -y
-sudo yum install aws-neuronx-tools-2.*  -y
-
 # Install Python venv and activate Python virtual environment to install Neuron pip packages.
-python3.7 -m venv aws_neuron_venv_pytorch_p37
-source aws_neuron_venv_pytorch_p37/bin/activate
+python3.7 -m venv aws_neuron_venv_pytorch
+source aws_neuron_venv_pytorch/bin/activate
 python -m pip install -U pip
 
 # Install packages from beta repos
 
 python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazonaws.com"
 # Install Python packages - Transformers package is needed for BERT
-python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" transformers
+python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" 
 ```
 
-5. Change `install_python_env.sh` to executable:
-```
-chmod +x install_python_env.sh
-```
-and run `install_python_env.sh` in head node terminal:
+5. Run `install_python_env.sh` in head node terminal:
 ```
 sh install_python_env.sh
 ```
