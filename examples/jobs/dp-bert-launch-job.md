@@ -6,8 +6,8 @@ First, on the headnode, setup the virtual Python environment in the home directo
 ```
 # Install Python venv and activate Python virtual environment to install
 # Neuron pip packages.
-python3.7 -m venv aws_neuron_venv_pytorch_p37
-source aws_neuron_venv_pytorch_p37/bin/activate
+python3 -m venv aws_neuron_venv_pytorch
+source aws_neuron_venv_pytorch/bin/activate
 python -m pip install -U pip
 
 # Install packages from beta repos
@@ -22,7 +22,7 @@ On ParallelCluster, the home directory is shared between the head node and compu
 For all the commands below, make sure you are in the virtual environment that you have created above before you run the commands. SLURM job scheduler will automatically activate the virtual environment when the training script is run on the worker nodes.
 
 ```
-source ~/aws_neuron_venv_pytorch_p37/bin/activate
+source ~/aws_neuron_venv_pytorch/bin/activate
 ```
 
 Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh` and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirements:
