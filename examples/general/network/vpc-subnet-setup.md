@@ -55,3 +55,18 @@ An example output of the above snippet may be:
 
 These are all the configurations needed to set up a VPC and the infrastructure inside. Now click `Create VPC`. This will create the VPC, two subnets, and one NAT gateway. 
 
+4. **Identify subnet by VPC ID** - Now in Subnets tab, find the subnets associated with your ParallelCluster’s VPC. There should be one private and one public subnet. We are going to edit settings in these subnets by clicking on these Subnet ID.
+
+![image info](../../images/subnets.png)
+
+Click on the public subnet's ID.
+
+5. **IPv4 address** - In the public subnet panel, in its `Actions` dropdown box, select `Edit subnet settings`:
+
+![image info](../../images/edit-subnet.png)
+
+This will take you to the next setting page. Here, you need to check `Enable auto-assign public IPv4 address:
+
+![image info](../../images/ipv4.png)
+
+These are all the changes you need to make for the public subnet.
