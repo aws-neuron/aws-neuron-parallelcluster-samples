@@ -6,5 +6,4 @@
 
 # Known Issues
 
-  - Issue 1
-    * need to be added.
+
