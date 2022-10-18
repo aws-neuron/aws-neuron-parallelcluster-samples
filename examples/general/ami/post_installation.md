@@ -69,7 +69,7 @@ python -m pip install -U pip
 # Install packages from beta repos
 
 python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazonaws.com"
-# Install Python packages - Transformers package is needed for BERT
+# Install Python packages
 python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" 
 ```
 
