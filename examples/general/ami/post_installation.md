@@ -51,29 +51,13 @@ sudo yum remove aws-neuronx-tools  -y
 sudo yum install aws-neuronx-tools-2.*  -y
 ```
 
-2. Change `install_neuron.sh` to executable:
+2. Execute `install_neuron.sh` via `sbatch` command:
 ```
-chmod +x install_neuron.sh
+sbatch -N 16 --exclusive --wrap "srun sh install_neuron.sh"
 ```
-
-3. Create a slurm script with the following content and name it as `install_neuron.slurm`:
-
-```
-#!/bin/bash
-#SBATCH --nodes=16
-#SBATCH --exclusive
-srun ./install_neuron.sh
-```
-
-and run it:
-
-```
-sbacth install_neuron.slurm
-```
-
 After this is completed, all compute nodes will have necessary Neuron packages installed.
 
-4. Set up Python virtual environment in head node. In this step, create a shell script with the following content and name it as `install_python_env.sh`:
+3. Set up Python virtual environment in head node. In this step, create a shell script with the following content and name it as `install_python_env.sh`:
 
 ```
 #!/bin/bash
@@ -89,7 +73,7 @@ python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazon
 python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" 
 ```
 
-5. Run `install_python_env.sh` in head node terminal:
+4. Run `install_python_env.sh` in head node terminal:
 ```
 sh install_python_env.sh
 ```
