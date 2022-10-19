@@ -73,11 +73,12 @@ python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazon
 python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" 
 ```
 
-4. Run `install_python_env.sh` in head node terminal:
+4. In head node terminal, run the following command:
 ```
-sh install_python_env.sh
+cd
+sbatch -N 1 --exclusive --wrap "srun sh install_python_env.sh"
 ```
-This is run as a shell script instead of Slurm script. This is because we only want to create the virtual environment once, which is in the head node only. 
+This is because we only want to create the virtual environment once, which is in the head node only. 
 
 After this step is complete, the ParallelCluster is properly configured to run SLURM jobs.
 
