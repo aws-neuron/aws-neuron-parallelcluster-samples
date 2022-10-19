@@ -70,3 +70,8 @@ See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more inform
 
 This library is licensed under the Amazon Software License.
 
+
+## Release Notes
+
+Please refer to the [Change Log](releasenotes.md).
+
