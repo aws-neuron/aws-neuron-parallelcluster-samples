@@ -73,7 +73,7 @@ python -m pip config set global.extra-index-url "https://pip.repos.neuron.amazon
 python -m pip install torch-neuronx=="1.11.0.1.*" "neuronx-cc==2.*" 
 ```
 
-4. In head node terminal, run the following command:
+4. In head node terminal, run the following command, make sure it's in the home directory:
 ```
 cd
 sbatch -N 1 --exclusive --wrap "srun sh install_python_env.sh"
