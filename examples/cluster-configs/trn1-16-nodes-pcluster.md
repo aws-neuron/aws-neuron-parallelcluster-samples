@@ -18,6 +18,10 @@ HeadNode:
   CustomActions:
     OnNodeConfigured:
       Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_trn1_neuron.sh
+  Iam:
+    S3Access:
+       - BucketName: neuron-s3
+         EnableWriteAccess: false
 Scheduling:
   Scheduler: slurm
   SlurmQueues:
@@ -44,6 +48,10 @@ Scheduling:
       CustomActions:
         OnNodeConfigured:
           Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_trn1_neuron.sh
+      Iam:
+        S3Access:
+          - BucketName: neuron-s3
+            EnableWriteAccess: false
 SharedStorage:
 - EfsSettings:
     ProvisionedThroughput: 1024
