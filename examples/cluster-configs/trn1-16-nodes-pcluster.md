@@ -98,7 +98,11 @@ Where
 
 `suppress-validators` is used here to generalize this command so it will not run into error triggered by tagging policies, if any.
 
-This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console.
+This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console. 
+
+You may also check cluster status using `pcluster` command, for example: 
+
+`pcluster describe-cluster -r us-west-2 -n My-ParallelCluster-Trn1`
 
 
 3. After the cluster is created successfully, [post-install actions](../general/ami/post_installation.md) now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and compute nodes. 
