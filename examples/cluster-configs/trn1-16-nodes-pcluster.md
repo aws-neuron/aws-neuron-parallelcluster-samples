@@ -15,6 +15,9 @@ HeadNode:
   LocalStorage:
     RootVolume:
       Size: 1024
+  CustomActions:
+    OnNodeConfigured:
+      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_trn1_neuron.sh
 Scheduling:
   Scheduler: slurm
   SlurmQueues:
@@ -38,6 +41,9 @@ Scheduling:
           - subnet-<PRIVATE SUBNET ID>
         PlacementGroup:
           Enabled: true
+      CustomActions:
+        OnNodeConfigured:
+          Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_trn1_neuron.sh
 SharedStorage:
 - EfsSettings:
     ProvisionedThroughput: 1024
@@ -47,7 +53,7 @@ SharedStorage:
   StorageType: Efs
   ```
 
-The yaml file above will create a ParallelCluster with one c5.2xlarge head node, and 16 trn1.32xl compute nodes. All 16 trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
+The yaml file above will create a ParallelCluster with one c5.2xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
 
 ```
 InstanceType: trn1.32xlarge
@@ -73,7 +79,7 @@ You also need to designate an EC2 private key . This is indicated by the followi
 
 ```
 Ssh:
-  KeyName: trn1
+  KeyName: <KEY NAME WITHOUT .PEM>
 ```
 
 2. In the virtual environment where you installed AWS ParallelCluster API, run the following command:
@@ -95,7 +101,7 @@ Where
 This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console.
 
 
-3. After the cluster is created successfully, perform the [post-install actions](../general/ami/post_installation.md) to configure the head node and compute nodes. 
+3. After the cluster is created successfully, [post-install actions](../general/ami/post_installation.md) now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and compute nodes. 
 
 
 4. After post-installation actions are complete, see [this](../jobs/dp-bert-launch-job.md) about how to launch a training job. 
