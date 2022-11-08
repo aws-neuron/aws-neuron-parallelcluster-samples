@@ -104,6 +104,7 @@ You may also check cluster status using `pcluster` command, for example:
 
 `pcluster describe-cluster -r us-west-2 -n My-ParallelCluster-Trn1`
 
+Note the head node IP address from the output of `pcluster describe-cluster` command above in order to SSH into the head node for the BERT training tutorial.
 
 3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
 
