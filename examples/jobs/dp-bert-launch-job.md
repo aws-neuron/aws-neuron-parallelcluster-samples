@@ -59,7 +59,8 @@ To see performance for larger global batch size (weak scaling), please comment o
 
 ## Tips
 
-Some useful slurm commands are `sinfo` and `squeue`. sinfo command displays information about SLURM modes and partitions. sinfo command provides information about job queues currently running in the Slurm schedule. While a job is running, SLURM generates a log file `slurm_<job id>.out`. You may then use `tail -f slurm_<job id>.out` to inspect the job summary.
+Some useful slurm commands are `sinfo`,  `squeue` and `scontrol`. `sinfo` command displays information about slurm node names and partitions. `squeue` command provides information about job queues currently running in the Slurm schedule. Slurm will generate a log file `slurm-XXXXXX.out`. You may then use `tail -f slurm-XXXXXX.out`, to inspect the job summary. `scontrol show node <COMPUTE_NODE_NAME>` can show more information such as node state, power consumption, and more.
+
 
 ## Known issues/limitations
 

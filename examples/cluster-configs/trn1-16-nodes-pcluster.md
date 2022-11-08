@@ -105,7 +105,9 @@ You may also check cluster status using `pcluster` command, for example:
 `pcluster describe-cluster -r us-west-2 -n My-ParallelCluster-Trn1`
 
 
-3. After the cluster is created successfully, [post-install actions](../general/ami/post_installation.md) happens as a part of the cluster creating process. Post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0).
+3. After the cluster is created successfully, post-install actions happen as a part of the cluster creating process. Post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). For your information, `CustomActions` will install Neuron drivers and runtime, EFA drivers (if multi-instance training), and Neuron tools. 
+
+After this step is complete, the ParallelCluster environment is properly configured to run SLURM jobs.
 
 
 4. After post-installation actions are complete, see [this](../jobs/dp-bert-launch-job.md) about how to launch a training job. 
