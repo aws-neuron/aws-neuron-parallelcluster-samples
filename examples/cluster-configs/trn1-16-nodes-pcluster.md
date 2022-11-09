@@ -155,7 +155,7 @@ Ssh:
 2. In the virtual environment where you installed AWS ParallelCluster API, run the following command:
 
 ```
-pcluster create-cluster --cluster-configuration launch.yaml \
+pcluster create-cluster --cluster-configuration launch.YAML \
 --cluster-name My-ParallelCluster-Trn1 \
 --suppress-validators type:ComputeResourceLaunchTemplateValidator \
 \
