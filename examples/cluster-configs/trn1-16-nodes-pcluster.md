@@ -1,6 +1,6 @@
 # Create ParallelCluster
 
-1. Once your VPC, ParallelCluster python package, and key pair are set up, you are ready to create a ParallelCluster. Copy the following content into a launch.yaml file in your local desktop where AWS ParallelCluster CLI is installed. Here is the yaml if your os choice is Amazon Linux 2:
+1. Once your VPC, ParallelCluster python package, and key pair are set up, you are ready to create a ParallelCluster. Copy the following content into a launch.YAML file in your local desktop where AWS ParallelCluster CLI is installed. Here is the YAML if your operating system (OS) choice is Amazon Linux 2:
 
 ```
 Region: <YOUR REGION> # i.e., us-west-2
@@ -61,7 +61,7 @@ SharedStorage:
   StorageType: Efs
   ```
 
-If your os choice is Ubuntu 20.04, here is an example yaml:
+If your OS choice is Ubuntu 20.04, here is an example YAML:
 
 ```
 Region: <YOUR REGION> # i.e., us-west-2
@@ -123,7 +123,7 @@ SharedStorage:
   ```
 
 
-The yaml file above will create a ParallelCluster with one c5.2xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
+The YAML file above will create a ParallelCluster with one c5.2xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
 
 ```
 InstanceType: trn1.32xlarge
@@ -145,7 +145,7 @@ So now you have two queues, each queue is designated to a number of trn1 compute
 
 If you are using trn1.2xl instance, this feature is not enabled, and in which case, you don’t need such designation.
 
-You also need to designate an EC2 private key . This is indicated by the following line in launch.yaml :
+You also need to designate an EC2 private key . This is indicated by the following line in launch.YAML :
 
 ```
 Ssh:
@@ -162,7 +162,7 @@ pcluster create-cluster --cluster-configuration launch.yaml \
 ```
 Where
 
-`cluster-configuration` is the path to yaml file
+`cluster-configuration` is the path to YAML file
 
 `cluster-name` is the name of your cluster
 
@@ -174,6 +174,6 @@ You may also check cluster status using `pcluster` command, for example:
 
 `pcluster describe-cluster -r us-west-2 -n My-ParallelCluster-Trn1`
 
-3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
+3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `launch.YAML` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
 
 4. After post-installation actions are complete, the ParallelCluster environment is properly configured to run SLURM jobs. Rerun `pcluster describe-cluster ...` command above to see the head node IP address, such that you may SSH into it for the [next part of the tutorial](../jobs/dp-bert-launch-job.md) where you would launch a training job.
