@@ -7,7 +7,7 @@ Region: <YOUR REGION> # i.e., us-west-2
 Image:
   Os: alinux2
 HeadNode:
-  InstanceType: c5.2xlarge
+  InstanceType: c5.4xlarge
   Networking:
     SubnetId: subnet-<PUBLIC SUBNET ID>
   Ssh:
@@ -68,7 +68,7 @@ Region: <YOUR REGION> # i.e., us-west-2
 Image:
   Os: ubuntu2004
 HeadNode:
-  InstanceType: c5.2xlarge
+  InstanceType: c5.4xlarge
   Networking:
     SubnetId: subnet-<PUBLIC SUBNET ID>
   Ssh:
