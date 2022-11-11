@@ -123,7 +123,7 @@ SharedStorage:
   ```
 
 
-The YAML file above will create a ParallelCluster with one c5.4xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
+The YAML file above will create a ParallelCluster with a c5.4xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
 
 ```
 InstanceType: trn1.32xlarge
