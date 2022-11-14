@@ -2,7 +2,7 @@
 
 ## Introduction
 
-This document explains how to use AWS ParallelCluster to build HPC compute cluster that uses trn1 compute nodes to run your distributed ML training job. Once the nodes are launched, we will run a training task to confirm that the nodes are working, and use slurm commands to check the job status. In this tutorial, we will use AWS pcluster command to run a yaml file in order to generate the cluster. As an example, we are going to launch multiple trn1.32xl nodes in our cluster.
+This document explains how to use AWS ParallelCluster to build HPC compute cluster that uses trn1 compute nodes to run your distributed ML training job. Once the nodes are launched, we will run a training task to confirm that the nodes are working, and use SLURM commands to check the job status. In this tutorial, we will use AWS pcluster command to run a YAML file in order to generate the cluster. As an example, we are going to launch multiple trn1.32xl nodes in our cluster.
 
 We are going to set up our ParallelCluster infrastructure as below:
 
