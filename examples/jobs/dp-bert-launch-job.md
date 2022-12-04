@@ -66,6 +66,16 @@ Some useful SLURM commands are `sinfo`,  `squeue` and `scontrol`. `sinfo` comman
 
 - The current setup supports up to 16 nodes BERT pretraining.
 
+- For dynamic cluster with `MinCount = 0`, /etc/hosts IP addresses of compute nodes may not match with what's in `nslookup` upon cluster relaunch. A temporary workaround is to add the following code snippet on top of `run_dp_bert_large_hf_pretrain_bf16_s128.sh`:
+
+```
+IP="$(host $HOSTNAME| awk '{print $4}')"
+DOMAIN=$(jq .cluster.dns_domain /etc/chef/dna.json | tr -d \")
+sudo sed -i "/$HOSTNAME/d" /etc/hosts
+sudo bash -c "echo '$IP $HOSTNAME.${DOMAIN::-1} $HOSTNAME' >> /etc/hosts"
+```
+
+
 ## Troubleshooting guide
 
 See [Troubleshooting Guide for AWS ParallelCluster](https://docs.aws.amazon.com/parallelcluster/latest/ug/troubleshooting-v3.html) for more details and fixes to common issues.
