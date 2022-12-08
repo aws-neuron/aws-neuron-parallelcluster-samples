@@ -1,67 +1,7 @@
 # Create ParallelCluster
 
-1. Once your VPC, ParallelCluster python package, and key pair are set up, you are ready to create a ParallelCluster. Copy the following content into a launch.yaml file in your local desktop where AWS ParallelCluster CLI is installed. Here is the YAML if your operating system (OS) choice is Amazon Linux 2:
+1. Once your VPC, ParallelCluster python package, and key pair are set up, you are ready to create a ParallelCluster. Copy the following content into a launch.yaml file in your local desktop where AWS ParallelCluster CLI is installed. In an example here, the head node is designated to run on Ubuntu 20.04. Here is the example YAML file:  
 
-```
-Region: <YOUR REGION> # i.e., us-west-2
-Image:
-  Os: alinux2
-HeadNode:
-  InstanceType: c5.4xlarge
-  Networking:
-    SubnetId: subnet-<PUBLIC SUBNET ID>
-  Ssh:
-    KeyName: <KEY NAME WITHOUT .PEM>
-  LocalStorage:
-    RootVolume:
-      Size: 1024
-  CustomActions:
-    OnNodeConfigured:
-      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_neuron.sh
-  Iam:
-    S3Access:
-       - BucketName: neuron-s3
-         EnableWriteAccess: false
-Scheduling:
-  Scheduler: slurm
-  SlurmQueues:
-    - Name: compute1
-      CapacityType: ONDEMAND
-      ComputeSettings:
-        LocalStorage:
-          RootVolume:
-            Size: 1024
-          EphemeralVolume:
-            MountDir: /local_storage
-      ComputeResources:
-        - Efa:
-            Enabled: true
-          InstanceType: trn1.32xlarge
-          MaxCount: 16
-          MinCount: 0
-          Name: queue1-i1
-      Networking:
-        SubnetIds:
-          - subnet-<PRIVATE SUBNET ID>
-        PlacementGroup:
-          Enabled: true
-      CustomActions:
-        OnNodeConfigured:
-          Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/al2/pt/install_neuron.sh
-      Iam:
-        S3Access:
-          - BucketName: neuron-s3
-            EnableWriteAccess: false
-SharedStorage:
-- EfsSettings:
-    ProvisionedThroughput: 1024
-    ThroughputMode: provisioned
-  MountDir: /efs
-  Name: neuron
-  StorageType: Efs
-  ```
-
-If your OS choice is Ubuntu 20.04, here is an example YAML:
 
 ```
 Region: <YOUR REGION> # i.e., us-west-2
