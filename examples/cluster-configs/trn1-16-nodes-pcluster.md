@@ -59,9 +59,10 @@ SharedStorage:
   MountDir: /efs
   Name: neuron
   StorageType: Efs
-  ```
+```
 
 If your OS choice is Ubuntu 20.04, here is an example YAML:
+
 
 ```
 Region: <YOUR REGION> # i.e., us-west-2
