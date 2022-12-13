@@ -66,7 +66,7 @@ Some useful SLURM commands are `sinfo`,  `squeue` and `scontrol`. `sinfo` comman
 
 - The current setup supports up to 16 nodes BERT pretraining.
 
-- For dynamic cluster with `MinCount = 0`, /etc/hosts IP addresses of compute nodes may not match with what's in `nslookup` upon cluster relaunch. Therefore, for your information, a temporary workaround is included on top of custom installation script:
+- For dynamic cluster with `MinCount = 0`, /etc/hosts IP addresses of compute nodes may not match with what's in `nslookup` upon cluster relaunch. Therefore, for your information, a temporary workaround is included in `install_neuron.sh` post-install script:
 
 ```
 IP="$(host $HOSTNAME| awk '{print $4}')"
