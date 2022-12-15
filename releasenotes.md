@@ -23,4 +23,14 @@ it is because one of the hostnames in `/etc/hosts` is longer than 63 characters.
 srun -N <number of nodes> sudo sed -i 's/\([0-9]\) .*pcluster / /' /etc/hosts
 ```
 
+* Relaunch a dynamic cluster created with `MinCount = 0` may fail due to compute nodes IP address mismatch.
 
+For dynamic cluster with `MinCount = 0`, /etc/hosts IP addresses of compute nodes may not match with what's in `nslookup` upon cluster relaunch. Therefore, for your information, a temporary workaround is included in `install_neuron.sh` post-install script:
+
+```
+IP="$(host $HOSTNAME| awk '{print $4}')"
+DOMAIN=$(jq .cluster.dns_domain /etc/chef/dna.json | tr -d \")
+sudo sed -i "/$HOSTNAME/d" /etc/hosts
+sudo bash -c "echo '$IP $HOSTNAME.${DOMAIN::-1} $HOSTNAME' >> /etc/hosts"
+```
+This fix helps to ensure a dynamic cluster will relaunch successfully.
