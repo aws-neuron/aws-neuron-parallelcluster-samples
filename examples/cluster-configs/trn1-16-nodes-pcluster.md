@@ -17,7 +17,7 @@ HeadNode:
       Size: 1024
   CustomActions:
     OnNodeConfigured:
-      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.4.0/u20/pt/install_neuron.sh
+      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.6.0/u20/pt/install_neuron.sh
   Iam:
     S3Access:
        - BucketName: neuron-s3
