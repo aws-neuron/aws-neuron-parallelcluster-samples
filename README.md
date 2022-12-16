@@ -22,7 +22,7 @@ A key pair is needed for access to the head node of the cluster. You may use an 
 
 ### AWS ParallelCluster Python package
 
-AWS ParallelCluster Python package is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [here](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for instructions about installing AWS ParallelCluster Python package in your local node.
+AWS ParallelCluster Python package is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [here](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for instructions about installing AWS ParallelCluster Python package in your local environment.
 
 ## Create a cluster
 
