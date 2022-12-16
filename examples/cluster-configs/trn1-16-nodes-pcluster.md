@@ -94,10 +94,7 @@ Ssh:
 2. In the virtual environment where you installed AWS ParallelCluster API, run the following command:
 
 ```
-pcluster create-cluster --cluster-configuration launch.yaml \
--n My-PCluster-Trn1 \
-
-\
+pcluster create-cluster --cluster-configuration launch.yaml -n My-PCluster-Trn1 
 ```
 Where
 
