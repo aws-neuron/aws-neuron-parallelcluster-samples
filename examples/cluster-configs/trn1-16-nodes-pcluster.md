@@ -95,23 +95,19 @@ Ssh:
 
 ```
 pcluster create-cluster --cluster-configuration launch.yaml \
---cluster-name My-ParallelCluster-Trn1 \
---suppress-validators type:ComputeResourceLaunchTemplateValidator \
+-n My-PCluster-Trn1 \
+
 \
 ```
 Where
 
-`cluster-configuration` is the path to YAML file
-
-`cluster-name` is the name of your cluster
-
-`suppress-validators` is used here to generalize this command so it will not run into error triggered by tagging policies, if any.
+`cluster-configuration` is the YAML file
 
 This will create a ParallelCluster in your AWS account, and you may inspect the progress in AWS CloudFormation console. 
 
 You may also check cluster status using `pcluster` command, for example: 
 
-`pcluster describe-cluster -r us-west-2 -n My-ParallelCluster-Trn1`
+`pcluster describe-cluster -r us-west-2 -n My-PCluster-Trn1`
 
 3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
 
