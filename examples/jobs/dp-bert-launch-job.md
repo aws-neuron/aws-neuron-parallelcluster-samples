@@ -7,6 +7,7 @@ For all the commands below, make sure you are in the virtual environment created
 source ~/aws_neuron_venv_pytorch/bin/activate
 ```
 
+## [Download training script](#DTS)
 Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh` and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirements:
 ```
 mkdir -p ~/examples/dp_bert_hf_pretrain
@@ -20,6 +21,8 @@ python3 -m pip install -r requirements.txt
 
 The pretraining scripts will be stored in the home directory of the head node. Upon launching the job using SLURM, the job will run the script on each specified compute node.
 
+## [Download data set](#DDS)
+
 Download the tokenized and sharded dataset files needed for this tutorial:
 
 ```
@@ -31,6 +34,7 @@ rm bert_pretrain_wikicorpus_tokenized_hdf5_seqlen128.tar
 popd
 ```
 
+## [Compile model](#CM)
 The `run_dp_bert_large_hf_pretrain_bf16_s128.sh` script will be invoked by SLURM commands running on the head node. To do compilation, run the following command from `~/examples/dp_bert_hf_pretrain` directory on the head node:
 
 ```
@@ -40,7 +44,7 @@ sbatch --exclusive --nodes=16 --wrap "srun neuron_parallel_compile ./run_dp_bert
 
 The job id will be displayed by sbatch. You can monitor the results of the compilation job by inspecting the file `slurm_<job id>.out` file generated in `~/examples/dp_bert_hf_pretrain`.
 
-
+## [Launch training](#LT)
 After the compilation job is finished, start the actual pretraining:
 
 ```
@@ -50,12 +54,23 @@ sbatch  --exclusive --nodes=16 --wrap "srun ./run_dp_bert_large_hf_pretrain_bf16
 
 Again, the job id will be displayed by sbatch and you can follow the training by inspecting the file `slurm_<job id>.out` file generated in `~/examples/dp_bert_hf_pretrain`.
 
+### Cluster scalability
+
+There are two measures of scalability of a cluster: strong scaling and weak scaling. Typically, for model training, the need is to speed up training run, because usage cost is determined by sample throughput for rounds of gradient updates. In such scenario, we need to adjust gradient accumulation micro-step according to number of compute nodes. This is achieved with the following in the training shell script [`run_dp_bert_large_hf_pretrain_bf16_s128.sh`](#DTS):
+
+```
+GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
+```
+
+
 The SLURM shell script automatically adjust the gradient accumulation microsteps to keep the global batch size for phase 1 at 16384 (strong scaling) with the following line in the script:
 
 ```
 GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
 ```
-To see performance for larger global batch size (weak scaling), please comment out the line above.
+
+On the other hand, if the interest is to evaluate how many more workloads can be executed at a fixed time by adding more nodes, then use weak scaling to measure scalability.
+To see performance for larger global batch size (weak scaling), please comment out the line above. Doing so would keep number of steps for gradient accumulation constant with a default value (i.e., 32) provided in the training script [`run_dp_bert_large_hf_pretrain_bf16_s128.sh`](#DTS).
 
 ## Tips
 
