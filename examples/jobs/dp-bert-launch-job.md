@@ -56,7 +56,7 @@ Again, the job id will be displayed by sbatch and you can follow the training by
 
 ### Cluster scalability
 
-There are two measures of scalability of a cluster: strong scaling and weak scaling. Typically, for model training, the need is to speed up training run, because usage cost is determined by sample throughput for rounds of gradient updates. In such scenario, we need to adjust gradient accumulation micro-step according to number of compute nodes. This is achieved with the following in the training shell script [`run_dp_bert_large_hf_pretrain_bf16_s128.sh`](#DTS):
+There are two measures of scalability of a cluster: strong scaling and weak scaling. Typically, for model training, the need is to speed up training run, because usage cost is determined by sample throughput for rounds of gradient updates. In such scenario, we need to adjust gradient accumulation micro-step according to number of compute nodes. This is achieved with the following in the downloaded training shell script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`:
 
 ```
 GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
