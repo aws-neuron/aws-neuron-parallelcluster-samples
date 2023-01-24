@@ -15,7 +15,7 @@ As shown in the figure above, inside a VPC, there are two subnets, a public and 
 ## Prerequisite infrastructure
 
 ### VPC Creation
-A ParallelCluster requires a VPC that has two subnets and a Network Address Translation (NAT) gateway as shown in the diagram above. [Here](./examples/general/network/vpc-subnet-setup.md) are the instructions to to create hte VPC and enable auto-assign public IPv4 address for the public subnet. 
+A ParallelCluster requires a VPC that has two subnets and a Network Address Translation (NAT) gateway as shown in the diagram above. [Here](./examples/general/network/vpc-subnet-setup.md) are the instructions to create the VPC and enable auto-assign public IPv4 address for the public subnet. 
 
 ### Key pair
 A key pair is needed for access to the head node of the cluster. You may use an existing one or create a new key pair by following the instruction [here](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair "Create key pair")
