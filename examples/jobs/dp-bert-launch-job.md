@@ -56,7 +56,7 @@ Again, the job id will be displayed by sbatch and you can follow the training by
 
 ### Cluster scalability
 
-There are two measures of scalability of a cluster: strong scaling and weak scaling. Typically, for model training, the need is to speed up training run, because usage cost is determined by sample throughput for rounds of gradient updates. In such scenario, we need to adjust gradient accumulation micro-step according to number of compute nodes. This is achieved with the following in the downloaded training shell script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`:
+In a Trn1 cluster, multiple interconnected Trn1 instances run a large model training workload in parallel and reduce total computation time, or time to convergence. There are two measures of scalability of a cluster: strong scaling and weak scaling. Typically, for model training, the need is to speed up training run, because usage cost is determined by sample throughput for rounds of gradient updates. This means strong scaling is an important measure of scalability for model training. Strong scaling refers to the scenario where the total problem size stays the same as the number of processors increases. In evaluating strong scaling, or the impact of parallelization, we want to keep global batch size same and see how much time it takes to convergence. In such scenario, we need to adjust gradient accumulation micro-step according to number of compute nodes. This is achieved with the following in the downloaded training shell script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`:
 
 ```
 GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
@@ -69,8 +69,7 @@ The SLURM shell script automatically adjust the gradient accumulation microsteps
 GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
 ```
 
-On the other hand, if the interest is to evaluate how many more workloads can be executed at a fixed time by adding more nodes, then use weak scaling to measure scalability.
-To see performance for larger global batch size (weak scaling), please comment out the line above. Doing so would keep number of steps for gradient accumulation constant with a default value (i.e., 32) provided in the training script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`.
+On the other hand, if the interest is to evaluate how much more workloads can be executed at a fixed time by adding more nodes, then use weak scaling to measure scalability. In weak scaling, the problem size increases at the same rate as number of processors, thereby keeping amount of work per processor the same. To see performance for larger global batch size (weak scaling), please comment out the line above. Doing so would keep number of steps for gradient accumulation constant with a default value (i.e., 32) provided in the training script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`.
 
 ## Tips
 
