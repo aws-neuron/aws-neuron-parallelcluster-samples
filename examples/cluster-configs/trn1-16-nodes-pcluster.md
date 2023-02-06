@@ -109,3 +109,13 @@ You may also check cluster status using `pcluster` command, for example:
 3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `launch.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
 
 4. After post-installation actions are complete, the ParallelCluster environment is properly configured to run SLURM jobs. Rerun `pcluster describe-cluster ...` command above to see the head node IP address, such that you may SSH into it for the [next part of the tutorial](../jobs/dp-bert-launch-job.md) where you would launch a training job.
+
+## Known issues
+
+- The default entries in `/etc/hosts` sometimes does not map to the correct ip address (Trn1 has 8 network interfaces) resulting in potential connection errors when running multi-instance jobs. The default `install_neuron.sh` provided in the above sample YAML file has the workaround along with the neuron package installations. If you prefer to not include the installations and just patch this issue you can include the following as part of your custom OnNodeConfigured script for your Trn1 compute nodes or set it separately after worker launch but before launching any multi-instance jobs. 
+
+
+```
+ sudo sed -i "/$HOSTNAME/d" /etc/hosts
+```
+This removes the hostname ip address mapping. This mapping is not generally needed for normal ParallelCluster operation or Training jobs using Slurm.
