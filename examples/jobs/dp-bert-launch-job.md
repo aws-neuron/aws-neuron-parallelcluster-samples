@@ -62,12 +62,7 @@ In a Trn1 cluster, multiple interconnected Trn1 instances run a large model trai
 GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
 ```
 
-
-The SLURM shell script automatically adjust the gradient accumulation microsteps to keep the global batch size for phase 1 at 16384 (strong scaling) with the following line in the script:
-
-```
-GRAD_ACCUM_USTEPS=$(($GRAD_ACCUM_USTEPS/$WORLD_SIZE_JOB))
-```
+The SLURM shell script automatically adjust the gradient accumulation microsteps to keep the global batch size for phase 1 at 16384 (strong scaling).
 
 On the other hand, if the interest is to evaluate how much more workloads can be executed at a fixed time by adding more nodes, then use weak scaling to measure scalability. In weak scaling, the problem size increases at the same rate as number of processors, thereby keeping amount of work per processor the same. To see performance for larger global batch size (weak scaling), please comment out the line above. Doing so would keep number of steps for gradient accumulation constant with a default value (i.e., 32) provided in the training script `run_dp_bert_large_hf_pretrain_bf16_s128.sh`.
 
