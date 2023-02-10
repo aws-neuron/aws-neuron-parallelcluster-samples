@@ -8,14 +8,14 @@ source ~/aws_neuron_venv_pytorch/bin/activate
 ```
 
 ## Download training script
-Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh`, the public Python-based implementation of the Layerwise Adaptive Moments optimizer `lamb.py` (an alternative to default AdamW optimizer) and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirement. 
+Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh`, the public Python-based implementation of the Layerwise Adaptive Moments optimizer `lamb.py` (an alternative to default AdamW optimizer) and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirements. 
 ```
 mkdir -p ~/examples/dp_bert_hf_pretrain
 cd ~/examples/dp_bert_hf_pretrain
 wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/master/torch-neuronx/training/dp_bert_hf_pretrain/run_dp_bert_large_hf_pretrain_bf16_s128.sh
 chmod +x ./run_dp_bert_large_hf_pretrain_bf16_s128.sh
 wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/master/torch-neuronx/training/dp_bert_hf_pretrain/dp_bert_large_hf_pretrain_hdf5.py
-wget https://raw.githubusercontent.com/rwightman/pytorch-image-models/main/timm/optim/lamb.py .
+wget https://raw.githubusercontent.com/rwightman/pytorch-image-models/main/timm/optim/lamb.py
 wget https://raw.githubusercontent.com/aws-neuron/aws-neuron-samples/master/torch-neuronx/training/dp_bert_hf_pretrain/requirements.txt
 python3 -m pip install -r requirements.txt
 ```
