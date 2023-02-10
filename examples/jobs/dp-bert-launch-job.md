@@ -8,7 +8,7 @@ source ~/aws_neuron_venv_pytorch/bin/activate
 ```
 
 ## Download training script
-Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh`, the public Python-based implementation of the Layerwise Adaptive Moments optimizer `lamb.py` (an alternative to default AdamW optimizer), and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirement. 
+Next, download the Python-based training script `dp_bert_large_hf_pretrain_hdf5.py`, the SLURM shell script `dp_bert_large_hf_pretrain_hdf5.sh`, the public Python-based implementation of the Layerwise Adaptive Moments optimizer `lamb.py` (an alternative to default AdamW optimizer) and the requirements file into `~/examples/dp_bert_hf_pretrain` and install the requirement. 
 ```
 mkdir -p ~/examples/dp_bert_hf_pretrain
 cd ~/examples/dp_bert_hf_pretrain
