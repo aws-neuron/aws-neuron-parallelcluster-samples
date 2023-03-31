@@ -17,7 +17,7 @@ HeadNode:
       Size: 1024
   CustomActions:
     OnNodeConfigured:
-      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.6.0/u20/pt/install_neuron.sh
+      Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.9.0/u20/pt/install_neuron.sh
   Iam:
     S3Access:
        - BucketName: neuron-s3
@@ -47,18 +47,18 @@ Scheduling:
           Enabled: true
       CustomActions:
         OnNodeConfigured:
-          Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.6.0/u20/pt/install_neuron.sh
+          Script: s3://neuron-s3/pcluster/post-install-scripts/neuron-installation/v2.9.0/u20/pt/install_neuron.sh
       Iam:
         S3Access:
           - BucketName: neuron-s3
             EnableWriteAccess: false
 SharedStorage:
-- EfsSettings:
-    ProvisionedThroughput: 1024
-    ThroughputMode: provisioned
-  MountDir: /efs
-  Name: neuron
-  StorageType: Efs
+- FsxLustreSettings:
+    DeploymentType: SCRATCH_2
+    StorageCapacity: 1200
+  MountDir: /fsx
+  Name: pclusterfsx
+  StorageType: FsxLustre
   ```
 
 

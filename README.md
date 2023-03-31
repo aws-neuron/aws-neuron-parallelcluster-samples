@@ -39,6 +39,7 @@ See table below for script to launch a model training job on the ParallelCluster
 |Job      | Link  |
 |-------------|-------------------|
 |BERT Large   | [dp-bert-launch-job.md](./examples/jobs/dp-bert-launch-job.md) |
+|GPT3         | [gpt3-launch-job.md](./examples/jobs/gpt3-launch-job.md)       |
 
 ## Security
 
