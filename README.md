@@ -39,8 +39,8 @@ See table below for script to launch a model training job on the ParallelCluster
 |Job      | Link  |
 |-------------|-------------------|
 |BERT Large   | [dp-bert-launch-job.md](./examples/jobs/dp-bert-launch-job.md) |
-|GPT3         | [gpt3-launch-job.md](./examples/jobs/gpt3-launch-job.md)       |
-
+|GPT3 (Megatron-LM)        | [gpt3-launch-job.md](./examples/jobs/gpt3-launch-job.md)       |
+|GPT3 (neuronx-nemo-megatron) | [neuronx-nemo-megatron-gpt-job.md](./examples/jobs/neuronx-nemo-megatron-gpt-job.md) |
 ## Security
 
 See [CONTRIBUTING](CONTRIBUTING.md#security-issue-notifications) for more information.
