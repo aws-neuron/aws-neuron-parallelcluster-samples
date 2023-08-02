@@ -1,11 +1,11 @@
 # Launch a GPT-3 pretraining job using neuronx-nemo-megatron
  
-This tutorial explains how to run GPT-3 pretraining jobs with AWS EC2 trn1.32xl instances using [neuronx-nemo-megatron](https://github.com/aws-neuron/aws-neuron) and [AWS ParallelCluster](https://aws.amazon.com/hpc/parallelcluster/).
+This tutorial explains how to run GPT-3 pretraining jobs with AWS EC2 trn1.32xl instances using [neuronx-nemo-megatron](https://github.com/aws-neuron/neuronx-nemo-megatron) and [AWS ParallelCluster](https://aws.amazon.com/hpc/parallelcluster/).
 
 neuronx-nemo-megatron (also known as "AWS Neuron Reference for NeMo Megatron") includes modified versions of the open-source packages [NeMo](https://github.com/NVIDIA/NeMo) and [Apex](https://github.com/NVIDIA/apex) that have been adapted for use with AWS Neuron and AWS EC2 Trn1 instances. neuronx-nemo-megatron allows for pretraining models with hundreds of billions of parameters across thousands of Trainium accelerators, and enables advanced training capabilities such as 3D parallelism, sequence parallelism, and activation checkpointing.
 
 ## Prerequisites
-Before proceeding with this tutorial, please follow [these instructions](https://github.com/aws-neuron/aws-neuron-parallelcluster-samples#train-a-model-on-aws-trn1-parallelcluster) to create a ParallelCluster consisting of 1 or more trn1.32xl or trn1n.32xl nodes. ParallelCluster automates the creation of trn1 clusters, and provides the SLURM job management system for scheduling and managing distributed training jobs.
+Before proceeding with this tutorial, please follow [these instructions](https://github.com/aws-neuron/aws-neuron-parallelcluster-samples#train-a-model-on-aws-trn1-parallelcluster) to create a ParallelCluster consisting of 1 or more trn1.32xl or trn1n.32xl nodes. ParallelCluster automates the creation of trn1 clusters, and provides the SLURM job management system for scheduling and managing distributed training jobs. Please note that the home directory on your ParallelCluster head node will be shared with all of the worker nodes via NFS.
 
 ## Install neuronx-nemo-megatron
 
@@ -36,7 +36,7 @@ pip3 install wheel
 Install the neuronx-nemo-megatron packages and dependencies in your virtual environment:
 ```
 pip3 install ./build/*.whl
-pip3 install -r requirements.txt torch==1.13.1
+pip3 install -r requirements.txt torch==1.13.1 protobuf==3.20.3
 ```
 
 Build the Megatron helper module
