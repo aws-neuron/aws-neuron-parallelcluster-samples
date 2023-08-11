@@ -1,5 +1,5 @@
 # Launch a GPT-3 pretraining job using neuronx-nemo-megatron
- 
+
 This tutorial explains how to run GPT-3 pretraining jobs with AWS EC2 trn1.32xl instances using [neuronx-nemo-megatron](https://github.com/aws-neuron/neuronx-nemo-megatron) and [AWS ParallelCluster](https://aws.amazon.com/hpc/parallelcluster/).
 
 neuronx-nemo-megatron (also known as "AWS Neuron Reference for NeMo Megatron") includes modified versions of the open-source packages [NeMo](https://github.com/NVIDIA/NeMo) and [Apex](https://github.com/NVIDIA/apex) that have been adapted for use with AWS Neuron and AWS EC2 Trn1 instances. neuronx-nemo-megatron allows for pretraining models with hundreds of billions of parameters across thousands of Trainium accelerators, and enables advanced training capabilities such as 3D parallelism, sequence parallelism, and activation checkpointing.
@@ -46,6 +46,13 @@ python3 -c "from nemo.collections.nlp.data.language_modeling.megatron.dataset_ut
 compile_helper()"
 ```
 
+The above utility will help make this file : ```nemo.collections.nlp.data.language_modeling.megatron.dataset_utils``` and below is the expected output (You can ignore the error) 
+```
+2023-Aug-17 22:53:01.0674 47940:47940 ERROR  TDRV:tdrv_get_dev_info                       No neuron device available
+[NeMo W 2023-08-17 22:53:03 optimizers:67] Could not import distributed_fused_adam optimizer from Apex
+[NeMo W 2023-08-17 22:53:04 experimental:27] Module <class 'nemo.collections.nlp.data.language_modeling.megatron.megatron_batch_samplers.MegatronPretrainingRandomBatchSampler'> is experimental, not ready for production and is not fully supported. Use at your own risk.
+```
+
 ## Download GPT dataset
 This tutorial makes use of a preprocessed Wikipedia dataset that is stored in S3. The dataset can be downloaded to your cluster by running the following commands on the head node:
 ```sh
@@ -58,21 +65,55 @@ aws s3 cp s3://neuron-s3/training_datasets/gpt/wikipedia/my-gpt2_text_document.i
 aws s3 cp s3://neuron-s3/training_datasets/gpt/wikipedia/license.txt .  --no-sign-request
 ```
 
-## GPT-3 24B training configuration
-This tutorial shows how to pretrain a GPT-3 24B model with the following configuration:
-- Attention heads: 64
-- Layers: 28
-- Sequence length: 2048
-- Hidden size: 8192
-- Hidden FFN size: 32768
-- Microbatch size: 1
-- Global batch size: 32 * number_of_nodes
+## GPT-3 training configurations
+We tested with the following model sizes: 23B, 46B, 175B
+### GPT-3 23B
+- Model configuration
+    - Attention heads: 64
+    - Layers: 28
+    - Sequence length: 2048
+    - Hidden size: 8192
+    - Hidden FFN size: 32768
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
 
-The distributed training configuration is:
-- Number of nodes: 4
-- Tensor parallel degree: 8
-- Pipeline parallel degree: 4
-- Data parallel degree: 4
+- Distributed training configuration
+    - Number of nodes: 4
+    - Tensor parallel degree: 8
+    - Pipeline parallel degree: 4
+    - Data parallel degree: 4
+
+### GPT-3 46B
+- Model configuration
+    - Attention heads: 64
+    - Layers: 56
+    - Sequence length: 2048
+    - Hidden size: 8192
+    - Hidden FFN size: 32768
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
+
+- Distributed training configuration
+    - Number of nodes: 8
+    - Tensor parallel degree: 8
+    - Pipeline parallel degree: 8
+    - Data parallel degree: 4
+
+### GPT-3 175B
+- Model configuration
+    - Attention heads: 96
+    - Layers: 96
+    - Sequence length: 2048
+    - Hidden size: 12288
+    - Hidden FFN size: 49152
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
+
+- Distributed training configuration
+    - Number of nodes: 8
+    - Tensor parallel degree: 32
+    - Pipeline parallel degree: 8
+    - Data parallel degree: 1
 
 ## Pre-compile the model
 By default, PyTorch Neuron uses a just in time (JIT) compilation flow that sequentially compiles all of the neural network compute graphs as they are encountered during a training job. The compiled graphs are cached in a local compiler cache so that subsequent training jobs can leverage the compiled graphs and avoid compilation (so long as the graph signatures and Neuron version have not changed).
@@ -82,8 +123,9 @@ An alternative to the JIT flow is to use the included [neuron_parallel_compile](
 Run the following commands to launch an AOT pre-compilation job on your ParallelCluster:
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 4 compile.slurm ./gpt_24b.sh
+sbatch --nodes 4 compile.slurm ./gpt_23b.sh
 ```
+For the 46B and 175B the `--nodes 8` would be used instead of 4.
 
 Once you have launched the precompilation job, run the `squeue` command to view the SLURM job queue on your cluster. If you have not recently run a job on your cluster, it may take 4-5 minutes for the requested trn1.32xlarge nodes to be launched and initialized. Once the job is running, `squeue` should show output similar to the following:
 ```
@@ -109,8 +151,10 @@ At this point, you can press `CTRL-C` to exit the tail command.
 The GPT-3 pretraining job can be launched in the same manner as the precompilation job described above. In this case, we change the SLURM script from `compile.slurm` to `run.slurm`, but the other parameters remain the same:
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 4 run.slurm ./gpt_24b.sh
+sbatch --nodes 4 run.slurm ./gpt_23b.sh
 ```
+For the 46B and 175B the `--nodes 8` would be used instead of 4, like the compile above.
+
 
 As outlined above, you can again use the `squeue` command to view the job queue. Once you see that your pretraining job is running, you can view the output of the training job by examining the file named `slurm-run.slurm-ZZ.out` where ZZ represents the JOBID of your job:
 ```
@@ -122,6 +166,15 @@ Once the model is loaded onto the Trainium accelerators and training has commenc
 Epoch 0:   0%|          | 189/301501 [59:12<1573:03:24, 18.79s/it, loss=7.75, v_num=3-16, reduced_train_loss=7.560, global_step=188.0, consumed_samples=24064.0]
 Epoch 0:   0%|          | 190/301501 [59:30<1572:41:13, 18.79s/it, loss=7.74, v_num=3-16, reduced_train_loss=7.560, global_step=189.0, consumed_samples=24192.0]
 Epoch 0:   0%|          | 191/301501 [59:48<1572:21:28, 18.79s/it, loss=7.73, v_num=3-16, reduced_train_loss=7.910, global_step=190.0, consumed_samples=24320.0]
+```
+
+Note : Checkpointing is enabled by default and all your checkpoints are getting stored by default in the nemo_experiments directory. This can cause your host memory to fill up and can cause disk space issues, to change the directory to a file system path, you can introduce another parameter in test.sh like below : 
+```
+vi ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/test.sh 
+
+#Add the below param : 
+
+exp_manager.exp_dir: PATH_TO_FILE_SYSTEM_DIRECTORY
 ```
 
 ## Monitor training
@@ -151,6 +204,16 @@ Similarly, once you are logged into one of the active compute nodes, you can als
 * The initial release of neuronx-nemo-megatron supports GPT pretraining only. Model evaluation will be available in a future release.
 * The Neuron compiler's modular flow (ex: `--enable-experimental-O1`) is not supported by this initial release of neuronx-nemo-megatron.
 * neuronx-nemo-megatron currently requires pytorch-lightning v1.8.6
+* Checkpointing has stability issues and could cause timeout issues, to disable checkpointing, follow the below steps : 
+```
+vi ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/test.sh
+
+    # Change model.save_xser from True to False
+    +model.save_xser=False \
+    
+    # Change exp_manager.create_checkpoint_callback from True to False
+    exp_manager.create_checkpoint_callback=$CHECKPOINT_CALLBACK \
+```
 
 ## Troubleshooting guide
 See [Troubleshooting Guide for AWS ParallelCluster](https://docs.aws.amazon.com/parallelcluster/latest/ug/troubleshooting-v3.html) for more details and fixes to common issues.

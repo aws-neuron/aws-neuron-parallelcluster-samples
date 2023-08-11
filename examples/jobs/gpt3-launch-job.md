@@ -1,5 +1,5 @@
-# Launch GPT-3 training job
-Once the cluster is successfully created and the Neuron packages are installed, please ssh into the head node to begin the training example. As an example here, we expand the [GPT3 pretraining with Megatron-LM](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/megatron_lm_gpt.html) tutorial to run on a cluster using SLURM job scheduler. 
+# Launch GPT-3 training job [End of Support]
+Once the cluster is successfully created and the Neuron packages are installed, please ssh into the head node to begin the training example. As an example here, we expand the [GPT3 pretraining with Megatron-LM [End of Support]](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/tutorials/training/megatron_lm_gpt.html) tutorial to run on a cluster using SLURM job scheduler. 
 
 You will be running commands from the head node of the cluster. On ParallelCluster, the home directory is shared between the head node and compute nodes so files in the home directory are visible to worker nodes. 
 
