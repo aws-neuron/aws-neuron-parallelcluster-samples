@@ -58,21 +58,55 @@ aws s3 cp s3://neuron-s3/training_datasets/gpt/wikipedia/my-gpt2_text_document.i
 aws s3 cp s3://neuron-s3/training_datasets/gpt/wikipedia/license.txt .  --no-sign-request
 ```
 
-## GPT-3 24B training configuration
-This tutorial shows how to pretrain a GPT-3 24B model with the following configuration:
-- Attention heads: 64
-- Layers: 28
-- Sequence length: 2048
-- Hidden size: 8192
-- Hidden FFN size: 32768
-- Microbatch size: 1
-- Global batch size: 32 * number_of_nodes
+## GPT-3 training configurations
+We tested with the following model sizes: 23B, 46B, 175B 
+### GPT-3 23B
+- Model configuration
+    - Attention heads: 64
+    - Layers: 28
+    - Sequence length: 2048
+    - Hidden size: 8192
+    - Hidden FFN size: 32768
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
 
-The distributed training configuration is:
-- Number of nodes: 4
-- Tensor parallel degree: 8
-- Pipeline parallel degree: 4
-- Data parallel degree: 4
+- Distributed training configuration
+    - Number of nodes: 4
+    - Tensor parallel degree: 8
+    - Pipeline parallel degree: 4
+    - Data parallel degree: 4
+
+### GPT-3 46B
+- Model configuration
+    - Attention heads: 64
+    - Layers: 56
+    - Sequence length: 2048
+    - Hidden size: 8192
+    - Hidden FFN size: 32768
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
+
+- Distributed training configuration
+    - Number of nodes: 8
+    - Tensor parallel degree: 8
+    - Pipeline parallel degree: 8
+    - Data parallel degree: 4
+
+### GPT-3 175B
+- Model configuration
+    - Attention heads: 96
+    - Layers: 96
+    - Sequence length: 2048
+    - Hidden size: 12288
+    - Hidden FFN size: 49152
+    - Microbatch size: 1
+    - Global batch size: 32 * number_of_nodes
+
+- Distributed training configuration
+    - Number of nodes: 8
+    - Tensor parallel degree: 32
+    - Pipeline parallel degree: 8
+    - Data parallel degree: 1
 
 ## Pre-compile the model
 By default, PyTorch Neuron uses a just in time (JIT) compilation flow that sequentially compiles all of the neural network compute graphs as they are encountered during a training job. The compiled graphs are cached in a local compiler cache so that subsequent training jobs can leverage the compiled graphs and avoid compilation (so long as the graph signatures and Neuron version have not changed).
@@ -82,8 +116,9 @@ An alternative to the JIT flow is to use the included [neuron_parallel_compile](
 Run the following commands to launch an AOT pre-compilation job on your ParallelCluster:
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 4 compile.slurm ./gpt_24b.sh
+sbatch --nodes 4 compile.slurm ./gpt_23b.sh
 ```
+For the 46B and 175B the `--nodes 8` would be used instead of 4. 
 
 Once you have launched the precompilation job, run the `squeue` command to view the SLURM job queue on your cluster. If you have not recently run a job on your cluster, it may take 4-5 minutes for the requested trn1.32xlarge nodes to be launched and initialized. Once the job is running, `squeue` should show output similar to the following:
 ```
@@ -109,8 +144,10 @@ At this point, you can press `CTRL-C` to exit the tail command.
 The GPT-3 pretraining job can be launched in the same manner as the precompilation job described above. In this case, we change the SLURM script from `compile.slurm` to `run.slurm`, but the other parameters remain the same:
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 4 run.slurm ./gpt_24b.sh
+sbatch --nodes 4 run.slurm ./gpt_23b.sh
 ```
+For the 46B and 175B the `--nodes 8` would be used instead of 4, like the compile above.
+
 
 As outlined above, you can again use the `squeue` command to view the job queue. Once you see that your pretraining job is running, you can view the output of the training job by examining the file named `slurm-run.slurm-ZZ.out` where ZZ represents the JOBID of your job:
 ```
