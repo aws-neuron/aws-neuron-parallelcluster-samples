@@ -40,6 +40,7 @@ See table below for script to launch a model training job on the ParallelCluster
 |-------------|-------------------|
 |BERT Large   | [dp-bert-launch-job.md](./examples/jobs/dp-bert-launch-job.md) |
 |GPT3 (neuronx-nemo-megatron) | [neuronx-nemo-megatron-gpt-job.md](./examples/jobs/neuronx-nemo-megatron-gpt-job.md) |
+|Llama 2 7B (neuronx-nemo-megatron) | [neuronx-nemo-megatron-llamav2-job.md](./examples/jobs/neuronx-nemo-megatron-llamav2-job.md) |
 
 ## Launch training job [End of Support]
 

@@ -1,5 +1,8 @@
 # Change Log
 
+## August, 29th 2023
+* Added samples for pre-training Llama 2 7B model using neuronx-nemo-megatron library
+
 ## August, 28th 2023
 * Added samples for pre-training GPT-3 23B, 46B and 175B models using neuronx-nemo-megatron library
 * Announced End of Support for GPT-3 training using aws-neuron-reference-for-megatron-lm library 
