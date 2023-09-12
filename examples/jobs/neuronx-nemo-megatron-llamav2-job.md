@@ -84,7 +84,7 @@ python nemo/scripts/nlp_language_modeling/preprocess_data_for_megatron.py \
 Post tokenizing the dataset, you will have a path to the tokenizer and the dataset which will be used for pretraining. 
 
 ## Llama2 training configurations
-We tested with the following model sizes: 7B
+We tested with the following model sizes: 7B, 13B
 ### Llama2 7B
 
 - Model configuration
@@ -102,15 +102,38 @@ We tested with the following model sizes: 7B
     - Pipeline parallel degree: 1
     - Data parallel degree: 16
 
+### Llama2 13B
+
+- Model configuration
+  - Attention heads: 40
+  - Layers: 40
+  - Sequence length: 4096
+  - Hidden size: 5120
+  - Hidden FFN size: 13824
+  - Microbatch size: 1
+  - Global batch size: 1024
+
+- Distributed training configuration
+  - Number of nodes: 4
+  - Tensor parallel degree: 8
+  - Pipeline parallel degree: 4
+  - Data parallel degree: 4
+
 ## Pre-compile the model
 By default, PyTorch Neuron uses a just in time (JIT) compilation flow that sequentially compiles all of the neural network compute graphs as they are encountered during a training job. The compiled graphs are cached in a local compiler cache so that subsequent training jobs can leverage the compiled graphs and avoid compilation (so long as the graph signatures and Neuron version have not changed).
 
 An alternative to the JIT flow is to use the included [neuron_parallel_compile](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/api-reference-guide/training/pytorch-neuron-parallel-compile.html?highlight=neuron_parallel_compile) command to perform ahead of time (AOT) compilation. In the AOT compilation flow, the compute graphs are first identified and extracted during a short simulated training run, and the extracted graphs are then compiled and cached using parallel compilation, which is considerably faster than the JIT flow.
 
-Before starting the compilation you need to update your path to the dataset and tokenizer in the ```test_llama.sh``` script as below : 
+Before starting the compilation you need to update your path to the dataset and tokenizer in the ```test_llama.sh``` script for pretraining llama 7b and ```test_llama_mixed_precision.sh``` for pretraining llama 13b as below : 
 
 ```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
+
+# For llama 7b 
 vi test_llama.sh
+
+# For llama 13b 
+vi test_llama_mixed_precision.sh
 
 # Update the below lines
 # For tokenizer
@@ -123,6 +146,12 @@ Run the following commands to launch an AOT pre-compilation job on your Parallel
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
 sbatch --nodes 4 compile.slurm ./llama_7b.sh
+```
+
+For compiling llama 13b, run the following commands:
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
+sbatch --nodes 4 compile.slurm ./llama_13b.sh
 ```
 
 Once you have launched the precompilation job, run the `squeue` command to view the SLURM job queue on your cluster. If you have not recently run a job on your cluster, it may take 4-5 minutes for the requested trn1.32xlarge nodes to be launched and initialized. Once the job is running, `squeue` should show output similar to the following:
@@ -152,6 +181,11 @@ cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
 sbatch --nodes 4 run.slurm ./llama_7b.sh
 ```
 
+For llama_13b, run the below command : 
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
+sbatch --nodes 4 run.slurm ./llama_13b.sh
+```
 
 As outlined above, you can again use the `squeue` command to view the job queue. Once you see that your pretraining job is running, you can view the output of the training job by examining the file named `slurm-run.slurm-ZZ.out` where ZZ represents the JOBID of your job:
 ```
@@ -187,6 +221,22 @@ neuron-top
 ```
 
 Similarly, once you are logged into one of the active compute nodes, you can also use other Neuron tools such as [neuron-monitor](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/neuron-monitor-user-guide.html) and [neuron-ls](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/neuron-monitor-user-guide.html) to capture performance/utilization statistics and to understand NeuronCore allocation.
+
+## Key Features 
+* We were able to make llama work with zero optimizer but have enabled it by default. To reduce the memory pressure, you can give it by adding the below hyper parameter in your run script : 
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/
+
+# For llama 13b 
+vi test_llama.sh
+
+# For llama 7b
+vi test_llama_mixed_precision.sh
+
+# Add the below line in the run script :
+model.wrap_with_zero=True \
+
+```
 
 ## Known issues/limitations
 * The initial release of neuronx-nemo-megatron supports Llama2 pretraining only. Model evaluation will be available in a future release.

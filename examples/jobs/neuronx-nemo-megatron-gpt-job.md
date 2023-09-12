@@ -191,6 +191,18 @@ neuron-top
 
 Similarly, once you are logged into one of the active compute nodes, you can also use other Neuron tools such as [neuron-monitor](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/neuron-monitor-user-guide.html) and [neuron-ls](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/tools/neuron-sys-tools/neuron-monitor-user-guide.html) to capture performance/utilization statistics and to understand NeuronCore allocation.
 
+## Key Features
+* We were able to make gpt work with zero optimizer but have enabled it by default. To reduce the memory pressure, you can give it by adding the below hyper parameter in your run script :
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/
+
+vi test.sh
+
+# Add the below line in the run script :
+model.wrap_with_zero=True \
+
+```
+
 ## Known issues/limitations
 * The initial release of neuronx-nemo-megatron supports GPT pretraining only. Model evaluation will be available in a future release.
 * The Neuron compiler's modular flow (ex: `--enable-experimental-O1`) is not supported by this initial release of neuronx-nemo-megatron.
