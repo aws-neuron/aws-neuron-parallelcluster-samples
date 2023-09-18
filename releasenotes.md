@@ -1,5 +1,8 @@
 # Change Log
 
+## September, 15th 2023
+* Added sample for pre-training Llama 2 13B model using neuronx-nemo-megatron library
+
 ## August, 29th 2023
 * Added samples for pre-training Llama 2 7B model using neuronx-nemo-megatron library
 
