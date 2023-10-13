@@ -84,7 +84,7 @@ python nemo/scripts/nlp_language_modeling/preprocess_data_for_megatron.py \
 Post tokenizing the dataset, you will have a path to the tokenizer and the dataset which will be used for pretraining. 
 
 ## Llama2 training configurations
-We tested with the following model sizes: 7B, 13B
+We tested with the following model sizes: 7B, 13B, 70B
 ### Llama2 7B
 
 - Model configuration
@@ -119,25 +119,42 @@ We tested with the following model sizes: 7B, 13B
   - Pipeline parallel degree: 4
   - Data parallel degree: 4
 
+### Llama2 70B
+
+- Model configuration
+  - Attention heads: 64
+  - Layers: 80
+  - Sequence length: 4096
+  - Hidden size: 8192
+  - Hidden FFN size: 28672
+  - Microbatch size: 1
+  - Global batch size: 512
+
+- Distributed training configuration
+  - Number of nodes: 8
+  - Tensor parallel degree: 8
+  - Pipeline parallel degree: 8
+  - Data parallel degree: 2
+
 ## Pre-compile the model
 By default, PyTorch Neuron uses a just in time (JIT) compilation flow that sequentially compiles all of the neural network compute graphs as they are encountered during a training job. The compiled graphs are cached in a local compiler cache so that subsequent training jobs can leverage the compiled graphs and avoid compilation (so long as the graph signatures and Neuron version have not changed).
 
 An alternative to the JIT flow is to use the included [neuron_parallel_compile](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/frameworks/torch/torch-neuronx/api-reference-guide/training/pytorch-neuron-parallel-compile.html?highlight=neuron_parallel_compile) command to perform ahead of time (AOT) compilation. In the AOT compilation flow, the compute graphs are first identified and extracted during a short simulated training run, and the extracted graphs are then compiled and cached using parallel compilation, which is considerably faster than the JIT flow.
 
-Before starting the compilation you need to update your path to the dataset and tokenizer in the ```test_llama.sh``` script for pretraining llama 7b and ```test_llama_mixed_precision.sh``` for pretraining llama 13b as below : 
+Before starting the compilation you need to update your path to the dataset and tokenizer in the ```test_llama.sh``` script for pretraining llama 7b and llama 13b and ```test_llama_gqa.sh``` for pretraining llama 70b as below : 
 
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
 
-# For llama 7b 
+# For llama 7b and 13b
 vi test_llama.sh
 
-# For llama 13b 
-vi test_llama_mixed_precision.sh
+# For llama 70b 
+vi test_llama_gqa.sh
 
 # Update the below lines
 # For tokenizer
-model.tokenizer.type='PATH_TO_LLAMA_TOKENIZER/llamav2_weights/7b-hf' \
+model.tokenizer.type='PATH_TO_LLAMA_TOKENIZER/' \
 
 # For Dataset
 model.data.data_prefix=[1.0,PATH_TO_TOKENIZED_DATASET/books/book.jsonl-processed_text_document] \
@@ -153,6 +170,14 @@ For compiling llama 13b, run the following commands:
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
 sbatch --nodes 4 compile.slurm ./llama_13b.sh
 ```
+
+For compiling llama 70b, run the following commands:
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
+sbatch --nodes 8 compile.slurm ./llama_70b.sh
+```
+
+Note : For the 70B the `--nodes 8` would be used instead of 4.
 
 Once you have launched the precompilation job, run the `squeue` command to view the SLURM job queue on your cluster. If you have not recently run a job on your cluster, it may take 4-5 minutes for the requested trn1.32xlarge nodes to be launched and initialized. Once the job is running, `squeue` should show output similar to the following:
 ```
@@ -186,6 +211,13 @@ For llama_13b, run the below command :
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
 sbatch --nodes 4 run.slurm ./llama_13b.sh
 ```
+
+For llama_70b, run the below command :
+```
+cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
+sbatch --nodes 8 run.slurm ./llama_70b.sh
+```
+Note : For the 70B the `--nodes 8` would be used instead of 4.
 
 As outlined above, you can again use the `squeue` command to view the job queue. Once you see that your pretraining job is running, you can view the output of the training job by examining the file named `slurm-run.slurm-ZZ.out` where ZZ represents the JOBID of your job:
 ```
@@ -227,11 +259,11 @@ Similarly, once you are logged into one of the active compute nodes, you can als
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/
 
-# For llama 13b 
+# For llama 7b and 13b 
 vi test_llama.sh
 
-# For llama 7b
-vi test_llama_mixed_precision.sh
+# For llama 70b
+vi test_llama_gqa.sh
 
 # Add the below line in the run script :
 model.wrap_with_zero=True \
@@ -241,6 +273,7 @@ model.wrap_with_zero=True \
 ## Known issues/limitations
 * The initial release of neuronx-nemo-megatron supports Llama2 pretraining only. Model evaluation will be available in a future release.
 * neuronx-nemo-megatron currently requires pytorch-lightning v1.8.6
+* Llama2-70B : Tested and validated on 8 nodes. Scaling beyond might see memory issues.
 
 ## Troubleshooting guide
 See [Troubleshooting Guide for AWS ParallelCluster](https://docs.aws.amazon.com/parallelcluster/latest/ug/troubleshooting-v3.html) for more details and fixes to common issues.
