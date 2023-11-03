@@ -36,7 +36,7 @@ Scheduling:
       ComputeResources:
         - Efa:
             Enabled: true
-          InstanceType: trn1.32xlarge
+          InstanceType: trn1n.32xlarge
           MaxCount: 16
           MinCount: 0
           Name: queue1-i1
