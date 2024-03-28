@@ -36,7 +36,7 @@ pip3 install wheel
 Install the neuronx-nemo-megatron packages and dependencies in your virtual environment:
 ```
 pip3 install ./build/*.whl
-pip3 install -r requirements.txt torch==1.13.1 protobuf==3.20.3
+pip3 install -r requirements.txt protobuf==3.20.3
 ```
 
 Build the Megatron helper module
