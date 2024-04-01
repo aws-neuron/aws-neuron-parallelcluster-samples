@@ -36,7 +36,7 @@ pip3 install wheel
 Install the neuronx-nemo-megatron packages and dependencies in your virtual environment:
 ```
 pip3 install ./build/*.whl
-pip3 install -r requirements.txt torch==1.13.1 protobuf==3.20.3
+pip3 install -r requirements.txt protobuf==3.20.3
 ```
 
 Build the Megatron helper module
@@ -133,7 +133,7 @@ We tested with the following model sizes: 7B, 13B, 70B
 - Distributed training configuration
   - Number of nodes: 8
   - Tensor parallel degree: 8
-  - Pipeline parallel degree: 8
+  - Pipeline parallel degree: 16
   - Data parallel degree: 2
 
 ## Pre-compile the model
@@ -174,10 +174,10 @@ sbatch --nodes 4 compile.slurm ./llama_13b.sh
 For compiling llama 70b, run the following commands:
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 8 compile.slurm ./llama_70b.sh
+sbatch --nodes 32 compile.slurm ./llama_70b.sh
 ```
 
-Note : For the 70B the `--nodes 8` would be used instead of 4.
+Note : For the 70B the `--nodes 32` would be used instead of 4.
 
 Once you have launched the precompilation job, run the `squeue` command to view the SLURM job queue on your cluster. If you have not recently run a job on your cluster, it may take 4-5 minutes for the requested trn1.32xlarge nodes to be launched and initialized. Once the job is running, `squeue` should show output similar to the following:
 ```
@@ -215,9 +215,9 @@ sbatch --nodes 4 run.slurm ./llama_13b.sh
 For llama_70b, run the below command :
 ```
 cd ~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling
-sbatch --nodes 8 run.slurm ./llama_70b.sh
+sbatch --nodes 32 run.slurm ./llama_70b.sh
 ```
-Note : For the 70B the `--nodes 8` would be used instead of 4.
+Note : For the 70B the `--nodes 32` would be used instead of 4.
 
 As outlined above, you can again use the `squeue` command to view the job queue. Once you see that your pretraining job is running, you can view the output of the training job by examining the file named `slurm-run.slurm-ZZ.out` where ZZ represents the JOBID of your job:
 ```
