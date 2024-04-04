@@ -231,6 +231,8 @@ Epoch 0:  22%|██▏       | 4500/20101 [22:26:32<77:48:18, 17.95s/it, loss=2
 Epoch 0:  22%|██▏       | 4500/20101 [22:26:32<77:48:18, 17.95s/it, loss=2.44, v_num=5563, reduced_train_loss=2.450, gradient_norm=0.120, parameter_norm=1864.0, global_step=4512.0, consumed_samples=1.16e+6, iteration_time=16.50]
 ```
 
+The `reduced_train_loss` output here will be your true loss value. Please ignore the `loss=` value.
+
 ## Monitor training
 ### TensorBoard
 In addition to the text-based job monitoring described in the previous section, you can also use standard tools such as TensorBoard to monitor training job progress. To view an ongoing training job in TensorBoard, you first need to identify the experiment directory associated with your ongoing job. This will typically be the most recently created directory under `~/neuronx-nemo-megatron/nemo/examples/nlp/language_modeling/nemo_experiments/megatron_llama`. Once you have identifed the directory, `cd` into it, and then launch TensorBoard:
