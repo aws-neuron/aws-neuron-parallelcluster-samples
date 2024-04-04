@@ -36,7 +36,7 @@ Scheduling:
       ComputeResources:
         - Efa:
             Enabled: true
-          InstanceType: trn1.32xlarge
+          InstanceType: trn1nn.32xlarge
           MaxCount: 16
           MinCount: 0
           Name: queue1-i1
@@ -74,32 +74,32 @@ The `<PUBLIC SUBNET ID>`and `<PRIVATE SUBNET ID>`values are obtained following t
 
 The `<KEY NAME WITHOUT .PEM>` is obtained following [key pair setup](https://docs.aws.amazon.com/AWSEC2/latest/UserGuide/create-key-pairs.html#having-ec2-create-your-key-pair)
 
-The YAML file above will create a ParallelCluster with a c5.4xlarge head node, and 16 trn1.32xl compute nodes. All `MaxCount` trn1 nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
+The YAML file above will create a ParallelCluster with a c5.4xlarge head node, and 16 trn1n.32xl compute nodes. All `MaxCount` trn1n nodes are in the same queue. In case you need to isolate compute nodes with different queues, simply append another instanceType designation to the current instanceType, and designate `MaxCount` for each queue, for example, `InstanceType` section would be become:
 
 ```
-InstanceType: trn1.32xlarge
+InstanceType: trn1n.32xlarge
 MaxCount: 8
 MinCount: 0
 Name: queue-0
-InstanceType: trn1.32xlarge
+InstanceType: trn1n.32xlarge
 MaxCount: 8
 MinCount: 0
 Name: queue-1
 ```
 
-So now you have two queues, each queue is designated to a number of trn1 compute nodes. An unique feature for trn1.32xlarge instance is the EFA interfaces built for high performance/low latency network data transfer. This is indicated by:
+So now you have two queues, each queue is designated to a number of trn1n compute nodes. An unique feature for trn1n.32xlarge instance is the EFA interfaces built for high performance/low latency network data transfer. This is indicated by:
 
 ```
 - Efa:
     Enabled: true
 ```
 
-If you are using trn1.2xl instance, this feature is not enabled, and in which case, you don’t need such designation.
+If you are using trn1n.2xl instance, this feature is not enabled, and in which case, you don’t need such designation.
 
 2. In the virtual environment where you installed AWS ParallelCluster API, run the following command (assuming you have saved the configurations above in `configuration.yaml`):
 
 ```
-pcluster create-cluster --cluster-configuration configuration.yaml -n My-PCluster-Trn1 
+pcluster create-cluster --cluster-configuration configuration.yaml -n My-PCluster-trn1n 
 ```
 Where
 
@@ -109,7 +109,7 @@ This will create a ParallelCluster in your AWS account, and you may inspect the 
 
 You may also check cluster status using `pcluster` command, for example: 
 
-`pcluster describe-cluster -r us-west-2 -n My-PCluster-Trn1`
+`pcluster describe-cluster -r us-west-2 -n My-PCluster-trn1n`
 
 3. During the cluster creation process, post-install actions now takes place automatically via `CustomActions` indicated in `configuration.yaml` to configure the head node and any static compute nodes (`MinCount` > 0). `CustomActions` will install Neuron drivers and runtime, EFA drivers, and Neuron tools. 
 
@@ -166,7 +166,7 @@ pcluster update-compute-fleet --cluster-name <YOUR_CLUSTER_NAME> -r <YOUR_REGION
 
 ## Known issues
 
-- The default entries in `/etc/hosts` sometimes does not map to the correct ip address (Trn1 has 8 network interfaces) resulting in potential connection errors when running multi-instance jobs. The default `install_neuron.sh` provided in the above sample YAML file has the workaround along with the neuron package installations. If you prefer to not include the installations and just patch this issue you can include the following as part of your custom OnNodeConfigured script for your Trn1 compute nodes or set it separately after worker launch but before launching any multi-instance jobs. 
+- The default entries in `/etc/hosts` sometimes does not map to the correct ip address (trn1n has 8 network interfaces) resulting in potential connection errors when running multi-instance jobs. The default `install_neuron.sh` provided in the above sample YAML file has the workaround along with the neuron package installations. If you prefer to not include the installations and just patch this issue you can include the following as part of your custom OnNodeConfigured script for your trn1n compute nodes or set it separately after worker launch but before launching any multi-instance jobs. 
 
 ```
 sudo sed -i "/$HOSTNAME/d" /etc/hosts
