@@ -24,6 +24,23 @@ A key pair is needed for access to the head node of the cluster. You may use an 
 
 AWS ParallelCluster Python package is needed in a local environment (i.e., your Mac/PC desktop with a CLI terminal or an AWS Cloud9) where you issue the command to launch the creation process for your HPC environment in AWS. See [here](https://docs.aws.amazon.com/parallelcluster/latest/ug/install-v3-virtual-environment.html) for instructions about installing AWS ParallelCluster Python package in your local environment.
 
+### AWS CLI
+
+Make sure you have installed the [AWS Command Line Interface](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html):
+
+```
+$ pip3 install awscli
+```
+Next, configure your aws credentials and default region:
+
+```
+$ aws configure
+AWS Access Key ID [None]: YOUR_KEY
+AWS Secret Access Key [None]: YOUR_SECRET
+Default region name [us-east-1]:
+Default output format [None]:
+```
+
 ## Create a cluster
 
 See table below for script to create trn1 ParallelCluster:
